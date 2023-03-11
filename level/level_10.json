@@ -1,13 +1,13 @@
 {
     "start": [1,9],
     "end": [1,1],
-    "x_btn_list": [
+    "x_btn": [
         [9,11,[[2,12,"toggle"],[3,12,"toggle"],[1,6,"toggle"],[1,7,"toggle"]]]
     ],
-    "o_btn_list": [
+    "o_btn": [
         [9,5,[[1,3,"toggle"],[1,4,"toggle"]]]
     ],
-    "split_btn_list": [
+    "split_btn": [
         [1,12,[[1,12],[1,9]]]
     ],
     "map": [

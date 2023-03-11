@@ -1,14 +1,14 @@
 {
     "start": [0,1],
     "end": [6,1],
-    "x_btn_list": [
+    "x_btn": [
     ],
-    "o_btn_list": [
+    "o_btn": [
         [0,10,[[5,8,"toggle"],[5,7,"toggle"]]],
         [5,10,[[9,3,"hide"],[9,2,"hide"]]],
         [9,10,[[9,3,"unhide"],[9,2,"unhide"]]]
     ],
-    "split_btn_list": [
+    "split_btn": [
     ],
     "map": [
         [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
