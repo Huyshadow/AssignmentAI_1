@@ -39,22 +39,21 @@ class State:
         self.goal = copy.copy(goal)
         self.board_state = copy.copy(board_state)
 
-    def is_standing_state(self):
+    def standing(self):
         return len(self.cur) == 2
 
-    def is_plited_state(self):
-        # if splited, 2-first number in self.cur is the position of the current controlled block
+    def splited(self):
         return len(self.cur) == 4 \
-            and Blozorx.manhattan_distance(self.cur[:2], self.cur[2:]) != 1
+            and Blozorx.calculate_distance(self.cur[:2], self.cur[2:]) != 1
         
-    def is_lying_state(self):
-        return not self.is_standing_state() and not self.is_plited_state()
+    def lying(self):
+        return not self.standing() and not self.splited()
 
-    def is_goal_state(self):
-        return self.is_standing_state() \
+    def goal(self):
+        return self.standing() \
             and self.cur == self.goal
 
-    def is_cell_available(self,x,y):
+    def available(self,x,y):
         return (0 <= x < self.board_state.shape[0])\
             and (0 <= y < self.board_state.shape[1])\
             and self.board_state[x,y]
@@ -73,7 +72,7 @@ class Blozorx:
 
     CELL_TYPE_MAP = {
         'normal'     : 0,
-        'fragile'    : 1,
+        'move'       : 1,
         'flexible'   : 2,
         'x_btn'      : 3,
         'o_btn'      : 4,
@@ -83,16 +82,15 @@ class Blozorx:
     def __init__(self, level):
         self.level_is_playing(level)
 
-    def level_is_playing(self,level_id):
+    def level_display(self,level):
         self.level_id = Level(level)
 
-        # board's cell: (cell_type)
-        self.board = num.zeros(self.level_id.board.shape, dtype='int')
+        self.board = num.zeros(self.level_id.board.shape, dtype='int') #display when playing
 
         self.btn_target_map = {}
 
         for x,y in self.level_id.fragile_cells:
-            self.board[x,y] = self.CELL_TYPE_MAP['fragile']
+            self.board[x,y] = self.CELL_TYPE_MAP['move']
 
         for x,y,target_list in self.level_id.x_btn:
             self.board[x,y] = self.CELL_TYPE_MAP['x_btn']
@@ -110,105 +108,104 @@ class Blozorx:
             self.board[x,y] = self.CELL_TYPE_MAP['split_btn']
             self.btn_target_map[(x,y)] = target_list
 
-        self.init_state = State(cur = self.level.start,
-                                goal = self.level.goal,
-                                board_state = self.level.board)
+        #Initialize the start state
+        self.init_state = State(cur = self.level_id.start,
+                                goal = self.level_id.goal,
+                                board_state = self.level_id.board)
     
-    def get_possible_actions(self, state:State):
+    def possible_actions_nows(self, state:State):
         possile_actions = []
 
-        if state.is_standing_state():
+        if state.standing():
             x,y = state.cur
-            if state.is_cell_available(x-2,y) and state.is_cell_available(x-1,y):
+            if state.available(x-2,y) and state.available(x-1,y):
                 possile_actions.append(GamePlay.up)
-            if state.is_cell_available(x+1,y) and state.is_cell_available(x+2,y):
+            if state.available(x+1,y) and state.available(x+2,y):
                 possile_actions.append(GamePlay.down)
-            if state.is_cell_available(x,y-2) and state.is_cell_available(x,y-1):
+            if state.available(x,y-2) and state.available(x,y-1):
                 possile_actions.append(GamePlay.left)
-            if state.is_cell_available(x,y+1) and state.is_cell_available(x,y+2):
+            if state.available(x,y+1) and state.available(x,y+2):
                 possile_actions.append(GamePlay.right)
 
-        elif state.is_lying_state():        
+        elif state.lying():        
             x0,y0,x1,y1 = state.cur
             # lying on row
             if x0 == x1:
-                if state.is_cell_available(x0-1,y0) and state.is_cell_available(x1-1,y1):
-                    possile_actions.append(Action.UP)
-                if state.is_cell_available(x0+1,y0) and state.is_cell_available(x1+1,y1):
-                    possile_actions.append(Action.DOWN)
-                if state.is_cell_available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_INT_MAP['fragile']:
-                    possile_actions.append(Action.LEFT)
-                if state.is_cell_available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_INT_MAP['fragile']:
-                    possile_actions.append(Action.RIGHT)
+                if state.available(x0-1,y0) and state.available(x1-1,y1):
+                    possile_actions.append(GamePlay.up)
+                if state.available(x0+1,y0) and state.available(x1+1,y1):
+                    possile_actions.append(GamePlay.down)
+                if state.available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_MAP['move']:
+                    possile_actions.append(GamePlay.left)
+                if state.available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_MAP['move']:
+                    possile_actions.append(GamePlay.right)
             else:
-                if state.is_cell_available(x0-1,y0) and self.board[x0-1,y0] != self.CELL_TYPE_INT_MAP['fragile']:
-                    possile_actions.append(Action.UP)
-                if state.is_cell_available(x1+1,y0) and self.board[x1+1,y0] != self.CELL_TYPE_INT_MAP['fragile']:
-                    possile_actions.append(Action.DOWN)
-                if state.is_cell_available(x0,y0-1) and state.is_cell_available(x1,y1-1):
-                    possile_actions.append(Action.LEFT)
-                if state.is_cell_available(x0,y0+1) and state.is_cell_available(x1,y1+1):
-                    possile_actions.append(Action.RIGHT)
+                if state.available(x0-1,y0) and self.board[x0-1,y0] != self.CELL_TYPE_MAP['move']:
+                    possile_actions.append(GamePlay.up)
+                if state.available(x1+1,y0) and self.board[x1+1,y0] != self.CELL_TYPE_MAP['move']:
+                    possile_actions.append(GamePlay.down)
+                if state.available(x0,y0-1) and state.available(x1,y1-1):
+                    possile_actions.append(GamePlay.left)
+                if state.available(x0,y0+1) and state.available(x1,y1+1):
+                    possile_actions.append(GamePlay.right)
 
         else:  # block is splited
             x,y,_,_ = state.cur
-            possile_actions.append(Action.SWITCH)
-            if state.is_cell_available(x-1,y):
-                possile_actions.append(Action.UP)
-            if state.is_cell_available(x+1,y):
-                possile_actions.append(Action.DOWN)
-            if state.is_cell_available(x,y-1):
-                possile_actions.append(Action.LEFT)
-            if state.is_cell_available(x,y+1):
-                possile_actions.append(Action.RIGHT)
+            possile_actions.append(GamePlay.switch)
+            if state.available(x-1,y):
+                possile_actions.append(GamePlay.up)
+            if state.available(x+1,y):
+                possile_actions.append(GamePlay.down)
+            if state.available(x,y-1):
+                possile_actions.append(GamePlay.left)
+            if state.available(x,y+1):
+                possile_actions.append(GamePlay.right)
             
-        # print(possile_actions)
-        # possile_actions = [Action.UP,Action.DOWN,Action.LEFT,Action.RIGHT,Action.SWITCH]
         return possile_actions
 
     def _move_block(self, state:State, action):
         if state.is_standing_state(): 
             x,y = state.cur
-            if action == Action.UP:
+            if action == GamePlay.up:
                 state.cur = [x-2,y,x-1,y]
-            elif action == Action.DOWN:
+            elif action == GamePlay.down:
                 state.cur = [x+1,y,x+2,y]
-            elif action == Action.LEFT:
+            elif action == GamePlay.left:
                 state.cur = [x,y-2,x,y-1]
-            elif action == Action.RIGHT:
+            elif action == GamePlay.right:
                 state.cur = [x,y+1,x,y+2]
         elif state.is_lying_state():        
             x0,y0,x1,y1 = state.cur
             # lying on row
             if x0 == x1:
-                if action == Action.UP:
+                if action == GamePlay.up:
                     state.cur = [x0-1,y0,x1-1,y1]
-                elif action == Action.DOWN:
+                elif action == GamePlay.down:
                     state.cur = [x0+1,y0,x1+1,y1]
-                elif action == Action.LEFT:
+                elif action == GamePlay.left:
                     state.cur = [x0,y0-1]
-                elif action == Action.RIGHT:
+                elif action == GamePlay.right:
                     state.cur = [x0,y1+1]
             else:
-                if action == Action.UP:
+                if action == GamePlay.up:
                     state.cur = [x0-1,y0]
-                elif action == Action.DOWN:
+                elif action == GamePlay.down:
                     state.cur = [x1+1,y0]
-                elif action == Action.LEFT:
+                elif action == GamePlay.left:
                     state.cur = [x0,y0-1,x1,y1-1]
-                elif action == Action.RIGHT:
+                elif action == GamePlay.right:
                     state.cur = [x0,y0+1,x1,y1+1]
         # block is splited
         else:  
             x0,y0,x1,y1 = state.cur
 
-            if action == Action.UP:
+            if action == GamePlay.up:
                 state.cur = [x0-1,y0,x1,y1]
-            elif action == Action.DOWN:
+            elif action == GamePlay.down:
                 state.cur = [x0+1,y0,x1,y1]
-            elif action == Action.LEFT:
+            elif action == GamePlay.left:
                 state.cur = [x0,y0-1,x1,y1]
-            elif action == Action.RIGHT:
+            elif action == GamePlay.right:
                 state.cur = [x0,y0+1,x1,y1]
             
             if not state.is_plited_state():
@@ -259,7 +256,7 @@ class Blozorx:
         if not inplace:
             state = copy.deepcopy(state)
 
-        if action == Action.SWITCH:
+        if action == GamePlay.switch:
             if state.is_plited_state():
                 state.cur = state.cur[2:]+state.cur[:2]
         else:
@@ -277,5 +274,14 @@ class Blozorx:
         return False,None
 
     @staticmethod
-    def manhattan_distance(x,y):
-        return abs(x[0]-y[0]) + abs(x[1]-y[1])
+    def calculate_distance(x,y):
+        return abs(x[0]-y[0]) + abs(x[1]-y[1]) 
+    
+if __name__ == '__main__':
+    # p1 = Blozorx(2)
+    # p2 = Blozorx(2)
+    # print(p1.do_action(p1.init_state,'UP',inplace=False) == p2.init_state)
+    p1 = State([1,2],[3,4],{})
+    print(p1.standing())
+    print(GamePlay.take_action_set())
+    print(GamePlay.opposite_action(GamePlay.up, GamePlay.down))
