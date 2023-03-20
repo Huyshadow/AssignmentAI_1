@@ -72,7 +72,7 @@ class Blozorx:
 
     CELL_TYPE_MAP = {
         'normal'     : 0,
-        'move'       : 1,
+        'fragile'       : 1,
         'flexible'   : 2,
         'x_btn'      : 3,
         'o_btn'      : 4,
@@ -90,7 +90,7 @@ class Blozorx:
         self.btn_target_map = {}
 
         for x,y in self.level_id.fragile_cells:
-            self.board[x,y] = self.CELL_TYPE_MAP['move']
+            self.board[x,y] = self.CELL_TYPE_MAP['fragile']
 
         for x,y,target_list in self.level_id.x_btn:
             self.board[x,y] = self.CELL_TYPE_MAP['x_btn']
@@ -120,29 +120,28 @@ class Blozorx:
             x,y = state.cur
             if state.available(x-2,y) and state.available(x-1,y):
                 possile_actions.append(GamePlay.up)
-            if state.available(x+1,y) and state.available(x+2,y):
+            if state.available(x+2,y) and state.available(x+1,y):
                 possile_actions.append(GamePlay.down)
             if state.available(x,y-2) and state.available(x,y-1):
                 possile_actions.append(GamePlay.left)
-            if state.available(x,y+1) and state.available(x,y+2):
+            if state.available(x,y+2) and state.available(x,y+1):
                 possile_actions.append(GamePlay.right)
 
         elif state.lying():        
             x0,y0,x1,y1 = state.cur
-            # lying on row
-            if x0 == x1:
+            if x0 == x1: #row_lying
                 if state.available(x0-1,y0) and state.available(x1-1,y1):
                     possile_actions.append(GamePlay.up)
                 if state.available(x0+1,y0) and state.available(x1+1,y1):
                     possile_actions.append(GamePlay.down)
-                if state.available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_MAP['move']:
+                if state.available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_MAP['fragile']:
                     possile_actions.append(GamePlay.left)
-                if state.available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_MAP['move']:
+                if state.available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_MAP['fragile']:
                     possile_actions.append(GamePlay.right)
             else:
-                if state.available(x0-1,y0) and self.board[x0-1,y0] != self.CELL_TYPE_MAP['move']:
+                if state.available(x0-1,y0) and self.board[x0-1,y0] != self.CELL_TYPE_MAP['fragile']:
                     possile_actions.append(GamePlay.up)
-                if state.available(x1+1,y0) and self.board[x1+1,y0] != self.CELL_TYPE_MAP['move']:
+                if state.available(x1+1,y0) and self.board[x1+1,y0] != self.CELL_TYPE_MAP['fragile']:
                     possile_actions.append(GamePlay.down)
                 if state.available(x0,y0-1) and state.available(x1,y1-1):
                     possile_actions.append(GamePlay.left)
@@ -164,7 +163,7 @@ class Blozorx:
         return possile_actions
 
     def _move_block(self, state:State, action):
-        if state.is_standing_state(): 
+        if state.standing(): 
             x,y = state.cur
             if action == GamePlay.up:
                 state.cur = [x-2,y,x-1,y]
@@ -174,10 +173,9 @@ class Blozorx:
                 state.cur = [x,y-2,x,y-1]
             elif action == GamePlay.right:
                 state.cur = [x,y+1,x,y+2]
-        elif state.is_lying_state():        
+        elif state.lying():        
             x0,y0,x1,y1 = state.cur
-            # lying on row
-            if x0 == x1:
+            if x0 == x1: #row
                 if action == GamePlay.up:
                     state.cur = [x0-1,y0,x1-1,y1]
                 elif action == GamePlay.down:
