@@ -72,7 +72,7 @@ class Blozorx:
 
     CELL_TYPE_MAP = {
         'normal'     : 0,
-        'fragile'       : 1,
+        'fragile'    : 1,
         'flexible'   : 2,
         'x_btn'      : 3,
         'o_btn'      : 4,
