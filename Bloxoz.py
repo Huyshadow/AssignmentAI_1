@@ -11,21 +11,21 @@ class GamePlay:
 
     @staticmethod
     def opposite_action(action:str, check):
-        if action == GamePlay.DOWN:
-            return check == GamePlay.UP
-        if action == GamePlay.UP:
-            return check == GamePlay.DOWN
-        if action == GamePlay.LEFT:
-            return check == GamePlay.RIGHT
-        if action == GamePlay.RIGHT:
-            return check == GamePlay.LEFT
-        if action == GamePlay.SWITCH:
-            return check == GamePlay.SWITCH
+        if action == GamePlay.down:
+            return check == GamePlay.up
+        if action == GamePlay.up:
+            return check == GamePlay.down
+        if action == GamePlay.left:
+            return check == GamePlay.right
+        if action == GamePlay.right:
+            return check == GamePlay.left
+        if action == GamePlay.switch:
+            return check == GamePlay.switch
         return False
 
     @staticmethod
     def take_action_set():
-        return [GamePlay.UP,GamePlay.DOWN,GamePlay.LEFT,GamePlay.RIGHT,GamePlay.SWITCH]
+        return [GamePlay.up,GamePlay.down,GamePlay.left,GamePlay.right,GamePlay.switch]
     
     @staticmethod
     def decode_action(action_check):
@@ -120,13 +120,13 @@ class Blozorx:
         if state.is_standing_state():
             x,y = state.cur
             if state.is_cell_available(x-2,y) and state.is_cell_available(x-1,y):
-                possile_actions.append(Action.UP)
+                possile_actions.append(GamePlay.up)
             if state.is_cell_available(x+1,y) and state.is_cell_available(x+2,y):
-                possile_actions.append(Action.DOWN)
+                possile_actions.append(GamePlay.down)
             if state.is_cell_available(x,y-2) and state.is_cell_available(x,y-1):
-                possile_actions.append(Action.LEFT)
+                possile_actions.append(GamePlay.left)
             if state.is_cell_available(x,y+1) and state.is_cell_available(x,y+2):
-                possile_actions.append(Action.RIGHT)
+                possile_actions.append(GamePlay.right)
 
         elif state.is_lying_state():        
             x0,y0,x1,y1 = state.cur
