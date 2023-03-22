@@ -84,8 +84,8 @@ class Blozorx:
 
     def level_display(self,level):
         self.level_id = Level(level)
-
-        self.board = num.zeros(self.level_id.board.shape, dtype='int') #display when playing
+        #Create Board when we play
+        self.board = num.zeros(self.level_id.board.shape, dtype='int') 
 
         self.btn_target_map = {}
 
@@ -129,16 +129,7 @@ class Blozorx:
 
         elif state.lying():        
             x0,y0,x1,y1 = state.cur
-            if x0 == x1: #row_lying
-                if state.available(x0-1,y0) and state.available(x1-1,y1):
-                    possile_actions.append(GamePlay.up)
-                if state.available(x0+1,y0) and state.available(x1+1,y1):
-                    possile_actions.append(GamePlay.down)
-                if state.available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_MAP['fragile']:
-                    possile_actions.append(GamePlay.left)
-                if state.available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_MAP['fragile']:
-                    possile_actions.append(GamePlay.right)
-            else:
+            if y0 == y1: #column_lying
                 if state.available(x0-1,y0) and self.board[x0-1,y0] != self.CELL_TYPE_MAP['fragile']:
                     possile_actions.append(GamePlay.up)
                 if state.available(x1+1,y0) and self.board[x1+1,y0] != self.CELL_TYPE_MAP['fragile']:
@@ -147,6 +138,17 @@ class Blozorx:
                     possile_actions.append(GamePlay.left)
                 if state.available(x0,y0+1) and state.available(x1,y1+1):
                     possile_actions.append(GamePlay.right)
+                
+            else:
+                if state.available(x0-1,y0) and state.available(x1-1,y1):
+                    possile_actions.append(GamePlay.up)
+                if state.available(x0+1,y0) and state.available(x1+1,y1):
+                    possile_actions.append(GamePlay.down)
+                if state.available(x0,y0-1) and self.board[x0,y0-1] != self.CELL_TYPE_MAP['fragile']:
+                    possile_actions.append(GamePlay.left)
+                if state.available(x0,y1+1) and self.board[x0,y1+1] != self.CELL_TYPE_MAP['fragile']:
+                    possile_actions.append(GamePlay.right)
+                
 
         else:  # block is splited
             x,y,_,_ = state.cur
@@ -175,7 +177,16 @@ class Blozorx:
                 state.cur = [x,y+1,x,y+2]
         elif state.lying():        
             x0,y0,x1,y1 = state.cur
-            if x0 == x1: #row
+            if y0 == y1: #column
+                if action == GamePlay.up:
+                    state.cur = [x0-1,y0]
+                elif action == GamePlay.down:
+                    state.cur = [x1+1,y0]
+                elif action == GamePlay.left:
+                    state.cur = [x0,y0-1,x1,y1-1]
+                elif action == GamePlay.right:
+                    state.cur = [x0,y0+1,x1,y1+1]   
+            else:
                 if action == GamePlay.up:
                     state.cur = [x0-1,y0,x1-1,y1]
                 elif action == GamePlay.down:
@@ -184,19 +195,8 @@ class Blozorx:
                     state.cur = [x0,y0-1]
                 elif action == GamePlay.right:
                     state.cur = [x0,y1+1]
-            else:
-                if action == GamePlay.up:
-                    state.cur = [x0-1,y0]
-                elif action == GamePlay.down:
-                    state.cur = [x1+1,y0]
-                elif action == GamePlay.left:
-                    state.cur = [x0,y0-1,x1,y1-1]
-                elif action == GamePlay.right:
-                    state.cur = [x0,y0+1,x1,y1+1]
-        # block is splited
-        else:  
+        else:  #Truong hop Block Da Split :V 
             x0,y0,x1,y1 = state.cur
-
             if action == GamePlay.up:
                 state.cur = [x0-1,y0,x1,y1]
             elif action == GamePlay.down:
@@ -205,52 +205,54 @@ class Blozorx:
                 state.cur = [x0,y0-1,x1,y1]
             elif action == GamePlay.right:
                 state.cur = [x0,y0+1,x1,y1]
-            
             if not state.is_plited_state():
+                #Trong truong hop khi chung hop nhat lai voi nhau
                 x0,y0,x1,y1 = state.cur
                 state.cur = [min(x0,x1),min(y0,y1),max(x0,x1),max(y0,y1)]
                 
 
-    def _trigger_o_btn_if_possible(self, x, y, state:State):
-        if self.board[x,y] != self.CELL_TYPE_INT_MAP['o_btn']: return
+    def ActivateO_Button(self, x, y, state:State):
+        if self.board[x,y] != self.CELL_TYPE_MAP['o_btn']: return
         for tx,ty,trigger_type in self.btn_target_map[(x,y)]:
-            if trigger_type == self.TRIGGER_TYPE_INT_MAP['hide']:
+            if trigger_type == self.TRIGGER_OF_MAP['hide']:
                 state.board_state[tx,ty] = False
-            elif trigger_type == self.TRIGGER_TYPE_INT_MAP['unhide']:
+            elif trigger_type == self.TRIGGER_OF_MAP['unhide']:
                 state.board_state[tx,ty] = True
-            elif trigger_type == self.TRIGGER_TYPE_INT_MAP['toggle']:
+            elif trigger_type == self.TRIGGER_OF_MAP['toggle']:
                 state.board_state[tx,ty] ^= True
         
-    def _trigger_x_btn_if_possible(self, x, y, state:State):
-        if self.board[x,y] != self.CELL_TYPE_INT_MAP['x_btn']: return
+    def ActivateX_Button(self, x, y, state:State):
+        if self.board[x,y] != self.CELL_TYPE_MAP['x_btn']: return
 
         for tx,ty,trigger_type in self.btn_target_map[(x,y)]:
-            if trigger_type == self.TRIGGER_TYPE_INT_MAP['hide']:
+            if trigger_type == self.TRIGGER_OF_MAP['hide']:
                 state.board_state[tx,ty] = False
-            elif trigger_type == self.TRIGGER_TYPE_INT_MAP['unhide']:
+            elif trigger_type == self.TRIGGER_OF_MAP['unhide']:
                 state.board_state[tx,ty] = True
-            elif trigger_type == self.TRIGGER_TYPE_INT_MAP['toggle']:
-                state.board_state[tx,ty] ^= True
+            elif trigger_type == self.TRIGGER_OF_MAP['toggle']:
+                state.board_state[tx,ty] ^= True #Dao bit lai khi nhan lai tung lan
 
-    def _trigger_split_btn_if_possible(self, x, y, state:State):
-        if self.board[x,y] != self.CELL_TYPE_INT_MAP['split_btn']: return
+    def ActivateSplit_Button(self, x, y, state:State):
+        #Truong hop buoc vao o split 
+        #Neu Khi Khong c
+        if self.board[x,y] != self.CELL_TYPE_MAP['split_btn']: return
         state.cur = self.btn_target_map[(x,y)][0] + self.btn_target_map[(x,y)][1]
 
     def _trigger_button(self, state):
         if state.is_standing_state():
             x,y = state.cur
-            self._trigger_o_btn_if_possible(x, y, state)
-            self._trigger_x_btn_if_possible(x, y, state)
-            self._trigger_split_btn_if_possible(x, y, state)
+            self.ActivateO_Button(x, y, state)
+            self.ActivateX_Button(x, y, state)
+            self.ActivateSplit_Button(x, y, state)
         elif state.is_lying_state():
             x0,y0,x1,y1 = state.cur
-            self._trigger_o_btn_if_possible(x0, y0, state)
-            self._trigger_o_btn_if_possible(x1, y1, state)
+            self.ActivateO_Button(x0, y0, state)
+            self.ActivateO_Button(x1, y1, state)
         else: # split state
             x,y,_,_ = state.cur
-            self._trigger_o_btn_if_possible(x, y, state)
+            self.ActivateO_Button(x, y, state)
 
-    def do_action(self, state:State, action, inplace=False):
+    def playing(self, state:State, action, inplace=False):
         if not inplace:
             state = copy.deepcopy(state)
 
@@ -266,13 +268,14 @@ class Blozorx:
         if not inplace:
             return state
     
-    def do_action_if_possible(self, state:State, action, inplace=False):
+    def possible_move(self, state:State, action, inplace=False):
         if action in self.get_possible_actions(state):
-            return True,self.do_action(state, action, inplace)
+            return True,self.playing(state, action, inplace)
         return False,None
 
     @staticmethod
     def calculate_distance(x,y):
+        #Using mahhattan Distance
         return abs(x[0]-y[0]) + abs(x[1]-y[1]) 
     
 if __name__ == '__main__':
