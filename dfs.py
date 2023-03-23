@@ -4,28 +4,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from multiprocessing.connection import Connection
 from collections import deque,defaultdict
-from math import sqrt
 
 import numpy as num
 
-#in This A* Search, we use h(x) is Eucledian
 
-from Bloxoz import State, Blozorx
+from Bloxoz import Blozorx, State
 
-class Node:
-    def __init__(self,path,state:State , f = 0 , g = 0, h = 0):
-        self.path = path
-        self.state = state
-        self.f = f
-        self.g = g
-        self.h = h
-        
-
-def Eucledian_calculate(x0:int,y0:int, x1:int, y1:int):
-    h_x = sqrt(((x0 - x1) ** 2) + ((y0 - y1) ** 2))
-    return h_x
-
-def a_search(game:Blozorx, state:State = None, sender: Connection = None):
+def depth_first_search(game:Blozorx, state:State = None, sender: Connection = None):
     ready = time.time()
     nums_of_node = 0
     def getback(nums_of_node,path=None,is_done=False):
@@ -44,17 +29,16 @@ def a_search(game:Blozorx, state:State = None, sender: Connection = None):
                 pass 
         else:
             return nums_of_node,path,time.time() - ready
+
     if state is None:
         state = game.init_state
 
     if state.goaling():
         return getback(0, '', True)
-    
+     
+    que = deque()
+    que.append(('',state))
     has_visited = defaultdict(list)
-
-    open_list = []
-    closed_list = []
-
     def is_visited(state: State):
         nonlocal has_visited
         for board_visited in has_visited[tuple(state.cur)]:
@@ -66,17 +50,25 @@ def a_search(game:Blozorx, state:State = None, sender: Connection = None):
         nonlocal has_visited
         has_visited[tuple(state.cur)].append(state.board_state)
 
-    open_list.append(Node('',state, 0 , 0 , 0))
-    while len(open_list) > 0:
-        current_node = open_list[0]
-        current_index = 0
-
-        for i, item in enumerate(open_list):
-            if item.f < current_node.f:
-                current_node = item
-                current_index = i
+    while len(que) > 0:
+        path,cur_state = que.pop()
+        if is_visited(cur_state): 
+            continue
+        nums_of_node += 1
+        if nums_of_node % 1000 == 0:
+            getback(nums_of_node)
+        add_visited_state(cur_state)
         
-        open_list.pop(current_index)
-        closed_list.append(current_node)
+        for action in game.possible_actions_nows(cur_state):
+            next_state = game.playing(cur_state, action, inplace=False)
+            que.append((path+action[0],next_state))
+            if next_state.goaling():
+                return getback(nums_of_node, path+action[0], True)
+            
+                    
 
-    
+    return getback(nums_of_node,None,True)
+
+""" if __name__ == "__main__":
+    p1 = Blozorx(2)
+    depth_first_search(p1,p1.init_state,None) """

@@ -49,7 +49,7 @@ class State:
     def lying(self):
         return not self.standing() and not self.splited()
 
-    def goal(self):
+    def goaling(self):
         return self.standing() \
             and self.cur == self.goal
 
@@ -104,7 +104,7 @@ class Blozorx:
                 self.board[bx,by] = self.CELL_TYPE_MAP['flexible']
             self.btn_target_map[(x,y)] = target_list
 
-        for x,y,target_list in self.level_id.split_btn_list:
+        for x,y,target_list in self.level_id.split_btn:
             self.board[x,y] = self.CELL_TYPE_MAP['split_btn']
             self.btn_target_map[(x,y)] = target_list
 
@@ -279,10 +279,6 @@ class Blozorx:
         return abs(x[0]-y[0]) + abs(x[1]-y[1]) 
     
 if __name__ == '__main__':
-    p1 = Blozorx(2)
-    # p2 = Blozorx(2)
-    # print(p1.do_action(p1.init_state,'UP',inplace=False) == p2.init_state)
-    p1 = State([1,2],[3,4],{})
-    print(p1.standing())
+    p1 = Blozorx('2')
     print(GamePlay.take_action_set())
     print(GamePlay.opposite_action(GamePlay.up, GamePlay.down))

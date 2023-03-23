@@ -17,8 +17,7 @@ class AlgorithUI:
     SOLUTION={
         'BFS': 'Node explored',
         'DFS': 'Node explored',
-        'A*': 'Node explored',
-        'MonteCarlo': 'Node explored'
+        # Sẽ import thêm các giải thuật sau :V     
     }
 
     def __init__(self, background, UI_height , UI_width, level,algorithm):
@@ -66,6 +65,6 @@ class AlgorithUI:
                     self.exe_time_s = getback['time']
                     return
                 else:
-                    msg = getbackreturn_dict['msg']
+                    msg = getback['msg']
 
     #Lam tiep sau 

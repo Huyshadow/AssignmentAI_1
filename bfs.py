@@ -32,7 +32,7 @@ def breath_first_search(game:Blozorx, state:State = None, sender: Connection = N
     if state is None:
         state = game.init_state
 
-    if state.goal():
+    if state.goaling():
         return getback(0, '', True)
 
     que = deque()
@@ -53,14 +53,13 @@ def breath_first_search(game:Blozorx, state:State = None, sender: Connection = N
     while len(que) > 0:
         path,cur_state = que.popleft()
         nums_of_node += 1
-        if nums_of_node % 100 == 0:
+        if nums_of_node % 1000 == 0:
             getback(nums_of_node)
 
         for action in game.possible_actions_nows(cur_state):
             next_state = game.playing(cur_state, action, inplace=False)
 
-            if next_state.is_goal_state():
-                # return explore_node_num, path+action[0], time.time() - start_time_s
+            if next_state.goaling():
                 return getback(nums_of_node, path+action[0], True)
             if is_visited(next_state): 
                 continue
@@ -68,5 +67,8 @@ def breath_first_search(game:Blozorx, state:State = None, sender: Connection = N
             add_visited_state(next_state)
             que.append((path+action[0],next_state))
     
-    # return explore_node_num, None, time.time() - start_time_s
     return getback(nums_of_node,None,True)
+
+if __name__ == "__main__":
+    p1 = Blozorx(2)
+    breath_first_search(p1,p1.init_state,None)
