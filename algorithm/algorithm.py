@@ -15,6 +15,6 @@ class Algorithm:
     Algorithm_For_Game={
         'DFS':depth_first_search,
         'BFS':breath_first_search,
-        'A':a_search,
+        'A*': a_search,
         'MONTECARLO': monte_carlo_search
     }
