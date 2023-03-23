@@ -80,7 +80,7 @@ class Blozorx:
     }
 
     def __init__(self, level):
-        self.level_is_playing(level)
+        self.level_display(level)
 
     def level_display(self,level):
         self.level_id = Level(level)
@@ -205,7 +205,7 @@ class Blozorx:
                 state.cur = [x0,y0-1,x1,y1]
             elif action == GamePlay.right:
                 state.cur = [x0,y0+1,x1,y1]
-            if not state.is_plited_state():
+            if not state.splited():
                 #Trong truong hop khi chung hop nhat lai voi nhau
                 x0,y0,x1,y1 = state.cur
                 state.cur = [min(x0,x1),min(y0,y1),max(x0,x1),max(y0,y1)]
@@ -239,12 +239,12 @@ class Blozorx:
         state.cur = self.btn_target_map[(x,y)][0] + self.btn_target_map[(x,y)][1]
 
     def _trigger_button(self, state):
-        if state.is_standing_state():
+        if state.standing():
             x,y = state.cur
             self.ActivateO_Button(x, y, state)
             self.ActivateX_Button(x, y, state)
             self.ActivateSplit_Button(x, y, state)
-        elif state.is_lying_state():
+        elif state.lying():
             x0,y0,x1,y1 = state.cur
             self.ActivateO_Button(x0, y0, state)
             self.ActivateO_Button(x1, y1, state)
@@ -257,12 +257,12 @@ class Blozorx:
             state = copy.deepcopy(state)
 
         if action == GamePlay.switch:
-            if state.is_plited_state():
+            if state.splited():
                 state.cur = state.cur[2:]+state.cur[:2]
         else:
-            is_split_state = state.is_plited_state()
+            is_split_state = state.splited()
             self._move_block(state, action)
-            if not is_split_state or state.is_plited_state():
+            if not is_split_state or state.splited():
                 self._trigger_button(state)
 
         if not inplace:
@@ -279,7 +279,7 @@ class Blozorx:
         return abs(x[0]-y[0]) + abs(x[1]-y[1]) 
     
 if __name__ == '__main__':
-    # p1 = Blozorx(2)
+    p1 = Blozorx(2)
     # p2 = Blozorx(2)
     # print(p1.do_action(p1.init_state,'UP',inplace=False) == p2.init_state)
     p1 = State([1,2],[3,4],{})
