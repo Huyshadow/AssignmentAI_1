@@ -5,10 +5,68 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from multiprocessing.connection import Connection
 from collections import deque,defaultdict
 
-import numpy as np
+import numpy as num
 
+from Bloxoz import Blozorx, State
 
-from problem import Blozorx, State
+def breath_first_search(game:Blozorx, state:State = None, sender: Connection = None):
+    ready = time.time()
+    nums_of_node = 0
+    def getback(nums_of_node,path=None,is_done=False):
+        nonlocal sender,ready
+        if sender is not None:
+            return_dict = {
+                'solution_cost': nums_of_node,
+                'path': path,
+                'time': time.time() - ready,
+                'msg': f'Node has been through: {nums_of_node}',
+                'is_done': is_done
+            }
+            try:
+                sender.send(return_dict)
+            except:
+                pass 
+        else:
+            return nums_of_node,path,time.time() - ready
 
-def breath_first_search(problem:Blozorx, state:State = None, sender: Connection = None):
-    pass
+    if state is None:
+        state = game.init_state
+
+    if state.goal():
+        return getback(0, '', True)
+
+    que = deque()
+    que.append(('',state))
+    has_visited = defaultdict(list)
+
+    def is_visited(state: State):
+        nonlocal has_visited
+        for board_visited in has_visited[tuple(state.cur)]:
+            if num.array_equal(state.board_state,board_visited):
+                return True
+        return False
+
+    def add_visited_state(state: State):
+        nonlocal has_visited
+        has_visited[tuple(state.cur)].append(state.board_state)
+
+    while len(que) > 0:
+        path,cur_state = que.popleft()
+        nums_of_node += 1
+        if nums_of_node % 100 == 0:
+            getback(nums_of_node)
+
+        for action in game.possible_actions_nows(cur_state):
+            next_state = game.playing(cur_state, action, inplace=False)
+
+            if next_state.is_goal_state():
+                # return explore_node_num, path+action[0], time.time() - start_time_s
+                return getback(nums_of_node, path+action[0], True)
+            if is_visited(next_state): 
+                continue
+
+            add_visited_state(next_state)
+            que.append((path+action[0],next_state))
+    
+    # return explore_node_num, None, time.time() - start_time_s
+    return getback(nums_of_node,None,True)
