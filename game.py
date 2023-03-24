@@ -1,6 +1,8 @@
 import pygame
 import copy
+import sys, os
 
+from algorithm import Algorithm
 from Bloxoz import GamePlay,State,Blozorx
 #Referrence
 """ AVAILABLE_COLOR = (255, 255, 255)
@@ -18,13 +20,15 @@ GOAL_COLOR = (96,255,236)
 BLOCK_COLOR = (123,123,123)
 UNCONTROLBLOCK_COLOR=(123,11,11)
 BACKGROUND_COLOR=(96,255,236)
+
+
 class UI: #Design UI for Game
     def __init__(self, background, UI_height , UI_width, level):
         self.background = background
         self.UI_height = UI_height
         self.UI_witdh = UI_width
         self.center_x = self.UI_witdh / 2
-        self.center_y = self.UI_witdh / 2
+        self.center_y = self.UI_height / 2
         self.level = level
 
         self.game = Blozorx(level)
@@ -37,6 +41,7 @@ class UI: #Design UI for Game
         self.ending_x = self.center_x + self.game.level_id.size_x / 2 * self.rec_size
         self.ending_y = self.center_y + self.game.level_id.size_y / 2 * self.rec_size
         #Some attribute to go
+        pygame.font.init()
         self.FONT = pygame.font.Font(None, 50)
         self.moves = 0
         self.end = False 
@@ -115,19 +120,19 @@ class UI: #Design UI for Game
                         self.XButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['o_btn']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['o_btn']:
                         self.OButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['split_btn']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['split_btn']:
                         self.SpliButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['flexible']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['flexible']:
                         self.draw_cell(position=(start_x,start_y),
                             size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['fragile']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['fragile']:
                         self.draw_cell(position=(start_x,start_y),
                             size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
 
@@ -141,7 +146,7 @@ class UI: #Design UI for Game
             color=GOAL_COLOR)
 
     def block_paint(self):
-        if self.state.is_standing_state():
+        if self.state.standing():
             x = self.x_start+1+self.state.cur[1]*self.rec_size
             y = self.y_start+1+self.state.cur[0]*self.rec_size
             self.draw_cell(position=(x,y),size=self.rec_size-1,color=BLOCK_COLOR)
@@ -160,21 +165,26 @@ class UI: #Design UI for Game
                 self.draw_cell(position=(x1,y1),size=self.rec_size-1,color=UNCONTROLBLOCK_COLOR)
     
     def draw(self):
-        self.surface.fill(BACKGROUND_COLOR)
+        charRect = pygame.Rect((0,0),(1000, 600))
+        pygame.init()
+        charImage = pygame.image.load(os.path.join("design_game", "Background2.png"))
+        charImage = pygame.transform.scale(charImage, charRect.size)
+        charImage = charImage.convert()
+        self.background.blit(charImage,charRect)
         self.Map_paint()
         self.goal_paint()
         self.block_paint()
 
     def process_end(self):
-        if self.state.is_goal_state():
+        if self.state.goaling():
             self.over = True
             msg = f'Win at {self.moves} moves. Press ESC to go back.'
         else:
             msg = f'Moves: {self.moves:05d}'
 
         text = self.FONT.render(msg, True, (255, 255, 255))
-        text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, self.W_HEIGHT_SIZE - 35))
-        self.surface.blit(text, text_rect)
+        text_rect = text.get_rect(center=(self.UI_witdh/2, self.UI_height - 35))
+        self.background.blit(text, text_rect)
 
     def process(self, events):
         self.input_game(events)

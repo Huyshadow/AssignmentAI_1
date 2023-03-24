@@ -269,7 +269,7 @@ class Blozorx:
             return state
     
     def possible_move(self, state:State, action, inplace=False):
-        if action in self.get_possible_actions(state):
+        if action in self.possible_actions_nows(state):
             return True,self.playing(state, action, inplace)
         return False,None
 
