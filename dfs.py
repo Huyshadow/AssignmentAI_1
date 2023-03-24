@@ -54,14 +54,15 @@ def depth_first_search(game:Blozorx, state:State = None, sender: Connection = No
         path,cur_state = que.pop()
         if is_visited(cur_state): 
             continue
+        add_visited_state(cur_state)
         nums_of_node += 1
         if nums_of_node % 1000 == 0:
             getback(nums_of_node)
-        add_visited_state(cur_state)
         
         for action in game.possible_actions_nows(cur_state):
             next_state = game.playing(cur_state, action, inplace=False)
-            que.append((path+action[0],next_state))
+            if not is_visited(next_state):
+                que.append((path+action[0],next_state))
             if next_state.goaling():
                 return getback(nums_of_node, path+action[0], True)
             

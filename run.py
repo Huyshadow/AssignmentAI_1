@@ -23,8 +23,8 @@ LIGHT_BLUE = (16, 109, 191)
 DARK_BLUE = (0,0,139)
 COLOR_BACKGROUND = (33, 60, 254)
 
-HEIGHT_SIZE = 700 
-WIDTH_SIZE = 900
+HEIGHT_SIZE = 600 
+WIDTH_SIZE = 1000
 
 FONT = pygame_menu.font.FONT_OPEN_SANS
 FONT_BOLD = pygame_menu.font.FONT_OPEN_SANS_BOLD
@@ -41,8 +41,7 @@ CUSTOME_THEME = pygame_menu.Theme(
     widget_font=FONT,
     widget_font_size=32,
     widget_margin=(0,8),
-    widget_cursor=pygame_menu.locals.CURSOR_HAND,
-    )
+    widget_cursor=pygame_menu.locals.CURSOR_HAND,)
 
 if __name__ =="__main__":
     pygame.init()

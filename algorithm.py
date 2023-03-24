@@ -41,7 +41,7 @@ if __name__ == '__main__':
             except:
                 f.write('ERROR!\n')
     #BFS
-    with open('results/dfs.txt','w') as f:
+    with open('results/bfs.txt','w') as f:
          for level in range(33):
             try:
                 f.write(f'\n----Level {level+1:02d}----\n')

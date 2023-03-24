@@ -1,5 +1,6 @@
 import pygame
 import copy
+import sys, os
 
 from algorithm import Algorithm
 from Bloxoz import GamePlay,State,Blozorx
@@ -19,6 +20,8 @@ GOAL_COLOR = (96,255,236)
 BLOCK_COLOR = (123,123,123)
 UNCONTROLBLOCK_COLOR=(123,11,11)
 BACKGROUND_COLOR=(96,255,236)
+
+
 class UI: #Design UI for Game
     def __init__(self, background, UI_height , UI_width, level):
         self.background = background
@@ -162,7 +165,12 @@ class UI: #Design UI for Game
                 self.draw_cell(position=(x1,y1),size=self.rec_size-1,color=UNCONTROLBLOCK_COLOR)
     
     def draw(self):
-        self.background.fill(BACKGROUND_COLOR)
+        charRect = pygame.Rect((0,0),(1000, 600))
+        pygame.init()
+        charImage = pygame.image.load(os.path.join("design_game", "Background2.png"))
+        charImage = pygame.transform.scale(charImage, charRect.size)
+        charImage = charImage.convert()
+        self.background.blit(charImage,charRect)
         self.Map_paint()
         self.goal_paint()
         self.block_paint()
