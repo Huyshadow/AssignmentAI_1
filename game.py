@@ -1,6 +1,7 @@
 import pygame
 import copy
 
+from algorithm import Algorithm
 from Bloxoz import GamePlay,State,Blozorx
 #Referrence
 """ AVAILABLE_COLOR = (255, 255, 255)
@@ -24,7 +25,7 @@ class UI: #Design UI for Game
         self.UI_height = UI_height
         self.UI_witdh = UI_width
         self.center_x = self.UI_witdh / 2
-        self.center_y = self.UI_witdh / 2
+        self.center_y = self.UI_height / 2
         self.level = level
 
         self.game = Blozorx(level)
@@ -174,7 +175,7 @@ class UI: #Design UI for Game
             msg = f'Moves: {self.moves:05d}'
 
         text = self.FONT.render(msg, True, (255, 255, 255))
-        text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, self.W_HEIGHT_SIZE - 35))
+        text_rect = text.get_rect(center=(self.UI_witdh/2, self.UI_height - 35))
         self.background.blit(text, text_rect)
 
     def process(self, events):
@@ -185,11 +186,9 @@ class UI: #Design UI for Game
     def should_quit(self):
         return self.ESC
 if __name__ == "__main__":
-    surface = pygame.display.set_mode((1000,1000))
-    p1 = UI(surface,800,800,2)
+    
     """ while True:
         p1.background.fill(BUTTON_COLOR_XOSPLIT) """
-    #DFS
     with open('results/dfs.txt','w') as f:
          for level in range(33):
             try:

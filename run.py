@@ -41,12 +41,13 @@ CUSTOME_THEME = pygame_menu.Theme(
     widget_font=FONT,
     widget_font_size=32,
     widget_margin=(0,8),
-    widget_cursor=pygame_menu.locals.CURSOR_HAND,)
+    widget_cursor=pygame_menu.locals.CURSOR_HAND,
+    )
 
 if __name__ =="__main__":
     pygame.init()
 
-    tictok = pygame.time.clock()
+    tictok = pygame.time.Clock()
 
     background = pygame.display.set_mode((WIDTH_SIZE,HEIGHT_SIZE))
 
@@ -68,7 +69,7 @@ if __name__ =="__main__":
         global ALGORITHM_STATS, CURRENT_STATE, ALGORITHM, menu 
 
         #Status 
-        ALGORITHM_STATS = AlgorithUI_Stats(surface, HEIGHT_SIZE, WIDTH_SIZE, level_id, ALGORITHM)
+        ALGORITHM_STATS = AlgorithUI_Stats(background, HEIGHT_SIZE, WIDTH_SIZE, level_id, ALGORITHM)
         menu.disable()
         #---------------
         CURRENT_STATE = 'VIEWING_STATS_ALGORITHM'
@@ -108,11 +109,72 @@ if __name__ =="__main__":
     algorithm_menu.add.button('BACK', pygame_menu.events.BACK,font_size=24).translate(300,20)
 
     # Play menu
-    play_menu = pygame_menu.Menu('Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+    play_menu = pygame_menu.Menu('ASS1-Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
                                 onclose=None,
                                 theme=CUSTOME_THEME,
                                 mouse_motion_selection=True)
 
-    play_menu.add.button('ALGORITHM', algorithm_menu)
+    play_menu.add.button('ASS1-Bloxorz', algorithm_menu)
     play_menu.add.button('BACK', pygame_menu.events.BACK)
-    
+
+     # About menu
+    about_menu = pygame_menu.Menu('Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+                            onclose=None,
+                            theme=CUSTOME_THEME,
+                            mouse_motion_selection=True)
+
+    about_menu.add.label('ABOUT',font_size=40).translate(0, -40)
+
+    about_menu.add.label('A Blozorx solver ASS1',font_size=25).translate(0, -20)
+
+    """ about_menu.add.label('Author:  Le Nguyen Hung                 -  2013360',font_size=20)
+    about_menu.add.label('                Nguyen Van Bao Nguyen  -  2013930',font_size=20)
+    about_menu.add.label('                Vo Phan Anh Quan             -  2014285',font_size=20) """
+
+    about_menu.add.button('BACK', pygame_menu.events.BACK, font_size=24).translate(0, 40)
+
+
+    # Main menu
+
+    menu = pygame_menu.Menu('ASS1-Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+                            onclose=None,
+                            theme=CUSTOME_THEME,
+                            mouse_motion_selection=True,)
+
+    menu.add.button('PLAY GAME', play_menu)
+    menu.add.button('ABOUT', about_menu)
+    menu.add.button('QUIT', pygame_menu.events.EXIT)
+
+    # Main loop
+    while True:
+        # tick clock
+        deltatime = tictok.tick(FPS)
+
+        background.fill(COLOR_BACKGROUND)
+
+        events = pygame.event.get()
+        if CURRENT_STATE == 'VIEWING_STATS_ALGORITHM':
+            ALGORITHM_STATS.process(events)
+            if ALGORITHM_STATS.should_quit():
+                CURRENT_STATE = 'MENU'
+                menu.enable()
+            elif ALGORITHM_STATS.should_show():
+                CURRENT_STATE = 'VIEWING_ALGORITHM'
+                ALGORITHM_SHOW = AlgorithmUI_Show(background, HEIGHT_SIZE, WIDTH_SIZE, ALGORITHM_STATS.game.level_id.level, ALGORITHM_STATS.show_path(), 300)
+        elif CURRENT_STATE == 'VIEWING_ALGORITHM':
+            ALGORITHM_SHOW.process(events, deltatime)
+            if ALGORITHM_SHOW.should_quit():
+                CURRENT_STATE = 'MENU'
+                menu.enable()
+
+        for event in events:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        try:
+            menu.mainloop(background)
+        except:
+            pass
+        
+        pygame.display.update()

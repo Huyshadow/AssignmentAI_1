@@ -24,12 +24,12 @@ class AlgorithUI_Stats:
         # Sẽ import thêm các giải thuật sau :V     
     }
 
-    def __init__(self, background, UI_height , UI_width, level,algorithm):
+    def __init__(self, background, UI_height , UI_width, level ,algorithm):
         self.background = background
         self.UI_height = UI_height
-        self.UI_witdh = UI_width
-        self.center_x = self.UI_witdh / 2
-        self.center_y = self.UI_witdh / 2
+        self.UI_width = UI_width
+        self.center_x = self.UI_width / 2
+        self.center_y = self.UI_height / 2
 
         self.game = Blozorx(level)
         self.algorithm = Algorithm(algorithm)
@@ -38,6 +38,7 @@ class AlgorithUI_Stats:
         self.path = None
         self.exe_time_s = None
 
+        pygame.font.init()
         self.big_font = pygame.font.Font(None, 50)
         self.medium_font = pygame.font.Font(None, 40)
         self.small_font = pygame.font.Font(None, 30, bold=False)
@@ -49,7 +50,7 @@ class AlgorithUI_Stats:
     
     def loading_screen(self, receiver: Connection):
         msg = 'Waiting...'
-        fps_  = 10
+        fps_  = 20
         clock_ = pygame.time.Clock() 
 
         while True:
@@ -70,21 +71,21 @@ class AlgorithUI_Stats:
                     return
                 else:
                     msg = getback['msg']
-
+            
             self.background.fill(WHITE)
             
-            text = self.big_font.render(f"Level: {self.problem.level.level:02d}", True, LIGHT_BLUE)
-            text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, 80))
+            text = self.big_font.render(f"Level: {self.game.level_id.level:02d}", True, LIGHT_BLUE)
+            text_rect = text.get_rect(center=(self.UI_width/2, 80))
             self.background.blit(text, text_rect)
 
             # Algorithm header
-            text = self.medium_font.render(f"Algorithm: {self.algorithm.name}", True, LIGHT_BLUE)
-            text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, 125))
+            text = self.medium_font.render(f"Algorithm: {self.algorithm.algo}", True, LIGHT_BLUE)
+            text_rect = text.get_rect(center=(self.UI_width/2, 125))
             self.background.blit(text, text_rect)
 
             # Algorithm Calculating Status
             text = self.medium_font.render(msg, True, BLACK)
-            text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, self.W_HEIGHT_SIZE/2))
+            text_rect = text.get_rect(center=(self.UI_width/2, self.UI_height/2))
             self.background.blit(text, text_rect)
 
             pygame.display.update()
@@ -114,39 +115,39 @@ class AlgorithUI_Stats:
 
         # header_Level
         text = self.big_font.render(f"Level: {self.game.level_id.level:02d}", True, LIGHT_BLUE)
-        text_rect = text.get_rect(center=(self.UI_witdh/2, 80))
+        text_rect = text.get_rect(center=(self.UI_width/2, 80))
         self.background.blit(text, text_rect)
 
         #Algorithm
         text = self.medium_font.render(f"Algorithm: {self.algorithm.algo}", True, LIGHT_BLUE)
-        text_rect = text.get_rect(center=(self.UI_witdh/2, 125))
+        text_rect = text.get_rect(center=(self.UI_width/2, 125))
         self.background.blit(text, text_rect)
 
         # Running Solution  
         if self.solution_cost is not None:
             text = self.medium_font.render(f"{self.SOLUTION[self.algorithm.algo]}: {self.solution_cost}", True, BLACK)
-            text_rect = text.get_rect(center=(self.UI_witdh/2, 250))
+            text_rect = text.get_rect(center=(self.UI_width/2, 250))
             self.background.blit(text, text_rect)
         
         # Time running
         if self.exe_time_s is not None:
             text = self.medium_font.render(f"Time exec: {int(self.exe_time_s*1000)}ms", True, BLACK)
-            text_rect = text.get_rect(center=(self.UI_witdh/2, 300))
+            text_rect = text.get_rect(center=(self.UI_width/2, 300))
             self.background.blit(text, text_rect)
         
         if self.path is not None:
             # Total Step
             text = self.medium_font.render(f"Total step: {len(self.path)}", 230, BLACK)
-            text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, 350))
+            text_rect = text.get_rect(center=(self.UI_width/2, 350))
             self.background.blit(text, text_rect)
             # Press keyword to view Solution.
             text = self.small_font.render("Press S to view solution steps.", True, GRAY)
-            text_rect = text.get_rect(center=(self.UI_height/2, self.UI_witdh - 128))
+            text_rect = text.get_rect(center=(self.UI_height/2, self.UI_width - 128))
             self.background.blit(text, text_rect)
         
         else:
             text = self.small_font.render("NO SOLUTION FOUND!", True, RED)
-            text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, 350))
+            text_rect = text.get_rect(center=(self.UI_width/2, 350))
             self.background.blit(text, text_rect)
 
     def process(self, events):
@@ -212,12 +213,12 @@ class AlgorithmUI_Show:
     def process(self, events, deltatime):
         self.input_process(events)
 
-        next_action = self.get_next_action(deltatime)
+        next_action = self.next_action(deltatime)
         if next_action is not None:
-            self.game.do_action_if_posible(next_action)
+            self.game_play.action_possible(next_action)
 
-        self.game.draw()
-        self.game.process_end()
+        self.game_play.draw()
+        self.game_play.process_end()
 
         if self.PAUSE:
             self.draw_pause()
@@ -228,20 +229,7 @@ class AlgorithmUI_Show:
 
 if __name__ == '__main__':
     # with open('results/ga.txt','w') as f:
-    with open('results/bfs.txt','w') as f:
-        for level in range(33):
-            try:
-                f.write(f'\n----Level {level+1:02d}----\n')
-                problem = Blozorx(level+1)
-                # explore_node_num, path, exe_time_s = Algorithm('GA').solve(problem)
-                explore_node_num, path, exe_time_s = Algorithm('BFS').running(problem)
-                print(f'Level {level+1:02d} {int(exe_time_s*1000)}ms')
-                if path is not None:
-                    f.write(f'Explored: {explore_node_num} nodes\n')
-                    f.write(f'Step num: {len(path)}\n')
-                    f.write(f'Step : {"-".join(path)}\n')
-                    f.write(f'Time : {int(exe_time_s*1000)}ms\n')
-                else:
-                    f.write(f'NO SOLUTION FOUND!\n')
-            except:
-                f.write('ERROR!\n')
+    background = pygame.display.set_mode((900,770))
+    
+    p1 = AlgorithUI_Stats(background, 770,900,1,'BFS')
+    
