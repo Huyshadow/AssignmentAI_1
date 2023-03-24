@@ -37,6 +37,7 @@ class UI: #Design UI for Game
         self.ending_x = self.center_x + self.game.level_id.size_x / 2 * self.rec_size
         self.ending_y = self.center_y + self.game.level_id.size_y / 2 * self.rec_size
         #Some attribute to go
+        pygame.font.init()
         self.FONT = pygame.font.Font(None, 50)
         self.moves = 0
         self.end = False 
@@ -115,19 +116,19 @@ class UI: #Design UI for Game
                         self.XButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['o_btn']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['o_btn']:
                         self.OButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['split_btn']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['split_btn']:
                         self.SpliButton(position=(start_x,start_y),
                             size=self.rec_size-1,cell_color=CELL_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['flexible']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['flexible']:
                         self.draw_cell(position=(start_x,start_y),
                             size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
 
-                    elif cell_type == Blozorx.CELL_TYPE_INT_MAP['fragile']:
+                    elif cell_type == Blozorx.CELL_TYPE_MAP['fragile']:
                         self.draw_cell(position=(start_x,start_y),
                             size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
 
@@ -141,7 +142,7 @@ class UI: #Design UI for Game
             color=GOAL_COLOR)
 
     def block_paint(self):
-        if self.state.is_standing_state():
+        if self.state.standing():
             x = self.x_start+1+self.state.cur[1]*self.rec_size
             y = self.y_start+1+self.state.cur[0]*self.rec_size
             self.draw_cell(position=(x,y),size=self.rec_size-1,color=BLOCK_COLOR)
@@ -160,13 +161,13 @@ class UI: #Design UI for Game
                 self.draw_cell(position=(x1,y1),size=self.rec_size-1,color=UNCONTROLBLOCK_COLOR)
     
     def draw(self):
-        self.surface.fill(BACKGROUND_COLOR)
+        self.background.fill(BACKGROUND_COLOR)
         self.Map_paint()
         self.goal_paint()
         self.block_paint()
 
     def process_end(self):
-        if self.state.is_goal_state():
+        if self.state.goaling():
             self.over = True
             msg = f'Win at {self.moves} moves. Press ESC to go back.'
         else:
@@ -174,7 +175,7 @@ class UI: #Design UI for Game
 
         text = self.FONT.render(msg, True, (255, 255, 255))
         text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, self.W_HEIGHT_SIZE - 35))
-        self.surface.blit(text, text_rect)
+        self.background.blit(text, text_rect)
 
     def process(self, events):
         self.input_game(events)
@@ -183,3 +184,25 @@ class UI: #Design UI for Game
 
     def should_quit(self):
         return self.ESC
+if __name__ == "__main__":
+    surface = pygame.display.set_mode((1000,1000))
+    p1 = UI(surface,800,800,2)
+    """ while True:
+        p1.background.fill(BUTTON_COLOR_XOSPLIT) """
+    #DFS
+    with open('results/dfs.txt','w') as f:
+         for level in range(33):
+            try:
+                f.write(f'\n----Level {level+1:02d}----\n')
+                game = Blozorx(level+1)
+                explore_node_num, path, exe_time_s = Algorithm('DFS').running(game)
+                print(f'Level {level+1:02d} {int(exe_time_s*1000)}ms')
+                f.write(f'Explored: {explore_node_num} nodes\n')
+                if path is not None:
+                    f.write(f'Step num: {len(path)}\n')
+                    f.write(f'Step : {"-".join(path)}\n')
+                else:
+                    f.write(f'NO SOLUTION FOUND!\n')
+                f.write(f'Time : {int(exe_time_s*1000)}ms\n')
+            except:
+                f.write('ERROR!\n')
