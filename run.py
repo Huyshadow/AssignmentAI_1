@@ -111,7 +111,7 @@ if __name__ =="__main__":
 
 
     algorithm_menu.add.selector('Algorithm', 
-                                items=[('BFS','BFS'),('DFS','DFS')],
+                                items=[('BFS','BFS'),('DFS','DFS'),('A*','A*')],
                                 onchange=chosen_algorithm)
     
     # create level table for Level #

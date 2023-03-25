@@ -21,6 +21,7 @@ class AlgorithUI_Stats:
     SOLUTION={
         'BFS': 'Node explored',
         'DFS': 'Node explored',
+        'A*' : 'Node explored',
         # Sẽ import thêm các giải thuật sau :V     
     }
 
