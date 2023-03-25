@@ -66,8 +66,6 @@ def depth_first_search(game:Blozorx, state:State = None, sender: Connection = No
             if next_state.goaling():
                 return getback(nums_of_node, path+action[0], True)
             
-                    
-
     return getback(nums_of_node,None,True)
 
 """ if __name__ == "__main__":

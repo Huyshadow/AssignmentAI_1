@@ -77,7 +77,6 @@ def a_search(game:Blozorx, state:State = None, sender: Connection = None):
                 current_index = index
         open_list.pop(current_index)
         closed_list.append(current_state)
-        print(current_state.path)
         nums_of_node += 1
         if nums_of_node % 1000 == 0:
             getback(nums_of_node)
@@ -85,6 +84,9 @@ def a_search(game:Blozorx, state:State = None, sender: Connection = None):
             return getback(nums_of_node,current_state.path,True)
         for action in game.possible_actions_nows(current_state.state):
             next_state = game.playing(current_state.state,action,inplace=False)
+            if (is_visited(next_state)):
+                continue
+            add_visited_state(next_state)
             check_node_g = current_state.g + 1
             check_node_h = heuristic(next_state.cur,game.init_state.goal)
             check_node_f = check_node_g + check_node_h
