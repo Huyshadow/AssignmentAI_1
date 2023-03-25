@@ -9,8 +9,7 @@ from bfs import breath_first_search
 from dfs import depth_first_search
 from a_search import a_search
 
-""" 
-        'MONTECARLO': monte_carlo_search """
+"""'MONTECARLO': monte_carlo_search """
 class Algorithm:
     Algorithm_For_Game={
         'DFS':depth_first_search,
