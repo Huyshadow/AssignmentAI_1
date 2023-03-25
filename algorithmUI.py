@@ -1,5 +1,6 @@
 import time
-import sys
+import sys,os
+""" sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) """
 import multiprocessing
 from multiprocessing.connection import Connection
 
@@ -142,7 +143,7 @@ class AlgorithUI_Stats:
             text_rect = text.get_rect(center=(self.UI_width/2, 350))
             self.background.blit(text, text_rect)
             # Press keyword to view Solution.
-            text = self.small_font.render("Press S to view solution steps.", True, GRAY)
+            text = self.small_font.render("Press S to view solution steps.", True, BLACK)
             text_rect = text.get_rect(center=(self.UI_height/2, self.UI_width - 128))
             self.background.blit(text, text_rect)
         
