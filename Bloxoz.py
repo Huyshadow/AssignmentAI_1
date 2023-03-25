@@ -2,6 +2,7 @@ from level import Level
 import numpy as num
 import copy
 
+
 class GamePlay:
     left ="LEFT"
     right = 'RIGHT'
@@ -280,5 +281,6 @@ class Blozorx:
     
 if __name__ == '__main__':
     p1 = Blozorx('2')
+    print(p1.init_state.goal)
     print(GamePlay.take_action_set())
     print(GamePlay.opposite_action(GamePlay.up, GamePlay.down))
