@@ -143,8 +143,8 @@ class AlgorithUI_Stats:
             text_rect = text.get_rect(center=(self.UI_width/2, 350))
             self.background.blit(text, text_rect)
             # Press keyword to view Solution.
-            text = self.small_font.render("Press S to view solution steps.", True, BLACK)
-            text_rect = text.get_rect(center=(self.UI_height/2, self.UI_width - 128))
+            text = self.small_font.render("Press S to view solution steps.", True, LIGHT_BLUE) 
+            text_rect = text.get_rect(center=(self.UI_width/2, self.UI_height/2+228))
             self.background.blit(text, text_rect)
         
         else:
