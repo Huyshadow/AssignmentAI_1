@@ -46,6 +46,22 @@ CUSTOME_THEME = pygame_menu.Theme(
     widget_font_size=32,
     widget_margin=(0,8),
     widget_cursor=pygame_menu.locals.CURSOR_HAND,)
+class MyButton(pygame_menu.widgets.Button):
+    def __init__(self, text, font, *args, **kwargs):
+        super().__init__(text, *args, **kwargs)
+        self.font = font
+        self.font_color = (255, 255, 255)
+        self.bg_color = (0, 0, 0)
+
+    def draw(self, surface):
+        # Draw the button background
+        rect = pygame.Rect(self._rect)
+        pygame.draw.rect(surface, self.bg_color, rect)
+
+        # Draw the button label
+        font_surface = self.font.render(self.get_title(), True, self.font_color)
+        font_rect = font_surface.get_rect(center=rect.center)
+        surface.blit(font_surface, font_rect)
 
 if __name__ =="__main__":
     pygame.init()
@@ -86,7 +102,7 @@ if __name__ =="__main__":
         global ALGORITHM
         ALGORITHM = algorithm
     
-    algorithm_menu = pygame_menu.Menu('ASS1-Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+    algorithm_menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                                     onclose=None,
                                     theme=CUSTOME_THEME,
                                     mouse_motion_selection=True)
@@ -126,18 +142,19 @@ if __name__ =="__main__":
     play_menu.add.button('BACK', pygame_menu.events.BACK)
 
      # About menu
-    about_menu = pygame_menu.Menu('Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+    about_menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                             onclose=None,
                             theme=CUSTOME_THEME,
                             mouse_motion_selection=True)
 
     about_menu.add.label('ABOUT',font_size=40).translate(0, -40)
 
-    about_menu.add.label('A Blozorx solver ASS1',font_size=25).translate(0, -20)
+    about_menu.add.label('A Blozorx solver ASS1 created by',font_size=25).translate(0, -20)
 
-    """ about_menu.add.label('Author:  Le Nguyen Hung                 -  2013360',font_size=20)
-    about_menu.add.label('                Nguyen Van Bao Nguyen  -  2013930',font_size=20)
-    about_menu.add.label('                Vo Phan Anh Quan             -  2014285',font_size=20) """
+    about_menu.add.label('Author:     Tran Cong Minh Quan  -  2012528',font_size=20)
+    about_menu.add.label('                 Thi Khac Quan              -  2011925',font_size=20)
+    about_menu.add.label('                 Dang Quang Thanh     -  2014485',font_size=20)
+    about_menu.add.label('                 Dang Quang Huy         -  2012504',font_size=20) 
 
     about_menu.add.button('BACK', pygame_menu.events.BACK, font_size=24).translate(0, 40)
 

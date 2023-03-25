@@ -5,21 +5,15 @@ import sys, os
 from algorithm import Algorithm
 from Bloxoz import GamePlay,State,Blozorx
 #Referrence
-""" AVAILABLE_COLOR = (255, 255, 255)
-BLOCK_COLOR = (255,20,60)
-UNCONTROLLED_BLOCK_COLOR = (179,14,42)
-GOAL_COLOR = (50,205,50)
-BUTTON_COLOR = (105,105,105)
-FLEXIBLE_CELL_COLOR = (150,150,150)
-FRAGILE_CELL_COLOR = (242, 183, 5)
-GAME_COLOR_BACKGROUND = (0,0,139) """
+
 BUTTON_COLOR_XOSPLIT = (16,109,191)
 CELL_COLOR = (255,255,255)
-FLEXIBLE_FRAGILE_COLOR = (13,140,162)
+FLEXIBLE_COLOR = (130, 148, 165)
+FRAGILE_COLOR = (126,212,249)
 GOAL_COLOR = (96,255,236)
-BLOCK_COLOR = (123,123,123)
-UNCONTROLBLOCK_COLOR=(123,11,11)
-BACKGROUND_COLOR=(96,255,236)
+BLOCK_COLOR = (16,109,191)
+UNCONTROLBLOCK_COLOR=(76, 160, 190)
+
 
 
 class UI: #Design UI for Game
@@ -130,11 +124,11 @@ class UI: #Design UI for Game
 
                     elif cell_type == Blozorx.CELL_TYPE_MAP['flexible']:
                         self.draw_cell(position=(start_x,start_y),
-                            size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
+                            size=self.rec_size-1,color=FLEXIBLE_COLOR)
 
                     elif cell_type == Blozorx.CELL_TYPE_MAP['fragile']:
                         self.draw_cell(position=(start_x,start_y),
-                            size=self.rec_size-1,color=FLEXIBLE_FRAGILE_COLOR)
+                            size=self.rec_size-1,color=FRAGILE_COLOR)
 
 
     def goal_paint(self):
