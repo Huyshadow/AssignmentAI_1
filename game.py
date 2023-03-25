@@ -165,7 +165,7 @@ class UI: #Design UI for Game
                 self.draw_cell(position=(x1,y1),size=self.rec_size-1,color=UNCONTROLBLOCK_COLOR)
     
     def draw(self):
-        charRect = pygame.Rect((0,0),(1000, 600))
+        charRect = pygame.Rect((0,0),(1087, 800))
         pygame.init()
         charImage = pygame.image.load(os.path.join("design_game", "Background2.png"))
         charImage = pygame.transform.scale(charImage, charRect.size)

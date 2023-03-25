@@ -1,5 +1,5 @@
 import math
-import sys
+import sys,os
 
 import pygame
 import pygame_menu
@@ -29,11 +29,15 @@ WIDTH_SIZE = 1087
 FONT = pygame_menu.font.FONT_OPEN_SANS
 FONT_BOLD = pygame_menu.font.FONT_OPEN_SANS_BOLD
 
+myimage = pygame_menu.baseimage.BaseImage(
+    image_path='./design_game/Background1.png',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL,
+)
 CUSTOME_THEME = pygame_menu.Theme(
-    background_color=(255, 255, 255),
+    background_color=myimage,
     selection_color=LIGHT_BLUE,
     title_background_color=LIGHT_BLUE,
-    title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_ADAPTIVE,
+    title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE,
     title_font=FONT,
     title_font_antialias=True,
     title_font_color =(255,255,255),
@@ -49,6 +53,11 @@ if __name__ =="__main__":
     tictok = pygame.time.Clock()
 
     background = pygame.display.set_mode((WIDTH_SIZE,HEIGHT_SIZE))
+    charRect = pygame.Rect((0,0),(1087, 800))
+    charImage = pygame.image.load(os.path.join("design_game", "Background1.png"))
+    charImage = pygame.transform.scale(charImage, charRect.size)
+    charImage = charImage.convert()
+    background.blit(charImage,charRect)
 
     def btn_effect_chosen(selected, widget, menu):
         if selected:
@@ -108,12 +117,12 @@ if __name__ =="__main__":
     algorithm_menu.add.button('BACK', pygame_menu.events.BACK,font_size=24).translate(300,20)
 
     # Play menu
-    play_menu = pygame_menu.Menu('ASS1-Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+    play_menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                                 onclose=None,
                                 theme=CUSTOME_THEME,
                                 mouse_motion_selection=True)
 
-    play_menu.add.button('ASS1-Bloxorz', algorithm_menu)
+    play_menu.add.button('ALGORITHM', algorithm_menu)
     play_menu.add.button('BACK', pygame_menu.events.BACK)
 
      # About menu
@@ -135,11 +144,11 @@ if __name__ =="__main__":
 
     # Main menu
 
-    menu = pygame_menu.Menu('ASS1-Bloxorz', WIDTH_SIZE, HEIGHT_SIZE,
+    menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                             onclose=None,
                             theme=CUSTOME_THEME,
                             mouse_motion_selection=True,)
-
+    
     menu.add.button('PLAY GAME', play_menu)
     menu.add.button('ABOUT', about_menu)
     menu.add.button('QUIT', pygame_menu.events.EXIT)
