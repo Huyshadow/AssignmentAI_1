@@ -167,7 +167,7 @@ if __name__ =="__main__":
 
     about_menu.add.label('ABOUT',font_size=40,font_name = FONT_BOLD, font_color =(255,255,255)).translate(0, -40)
 
-    about_menu.add.label('A Blozorx solver ASS1 created by',font_size=25,font_color =(255,255,255)).translate(0, -20)
+    about_menu.add.label('A Blozorx solver ASS1 created by',font_size=25,font_color =(255,255,255), font_name = FONT_BOLD).translate(0, -20)
 
     about_menu.add.label('Author:     Tran Cong Minh Quan  -  2012528',font_size=20,font_color =(255,255,255))
     about_menu.add.label('                 Thi Khac Quan              -  2011925',font_size=20,font_color =(255,255,255))
@@ -195,9 +195,9 @@ if __name__ =="__main__":
         widget.set_background_color((255,255,255), )
         widget.set_color((0,0,0),)
          
-    menu_btn = menu.add.button('PLAY GAME',play_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25), font_name = FONT_BOLD )
+    menu_btn = menu.add.button('PLAY GAME',play_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,15,5,15), margin=(0,25), font_name = FONT_BOLD )
     menu_btn.set_selection_effect(test.set_background_color((255,255,255),))
-    menu_btn1 = menu.add.button('ABOUT', about_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,50,5,50),margin=(0,25), font_name = FONT_BOLD)
+    menu_btn1 = menu.add.button('ABOUT', about_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,49,5,49),margin=(0,25), font_name = FONT_BOLD)
     menu_btn1.set_selection_effect(test.set_background_color((255,255,255),))
     menu_btn2 = menu.add.button('QUIT', pygame_menu.events.EXIT, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,66,5,66),margin=(0,25), font_name = FONT_BOLD)
     menu_btn2.set_selection_effect(test.set_background_color((255,255,255),))
