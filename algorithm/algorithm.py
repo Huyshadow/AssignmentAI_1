@@ -1,13 +1,12 @@
-import time
 import sys,os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from multiprocessing.connection import Connection
 
 from Bloxoz import Blozorx, State
-from bfs import breath_first_search
-from dfs import depth_first_search
-from a_search import a_search
+from algorithm.bfs import breath_first_search
+from algorithm.dfs import depth_first_search
+from algorithm.a_search import a_search
 
 """'MONTECARLO': monte_carlo_search """
 class Algorithm:
