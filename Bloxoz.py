@@ -279,8 +279,3 @@ class Blozorx:
         #Using mahhattan Distance
         return abs(x[0]-y[0]) + abs(x[1]-y[1]) 
     
-if __name__ == '__main__':
-    p1 = Blozorx('2')
-    print(p1.init_state.goal)
-    print(GamePlay.take_action_set())
-    print(GamePlay.opposite_action(GamePlay.up, GamePlay.down))
