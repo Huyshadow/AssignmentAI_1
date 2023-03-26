@@ -25,7 +25,7 @@ class Algorithm:
 
 if __name__ == '__main__':
     #DFS
-    """ with open('results/dfs.txt','w') as f:
+    with open('results/dfs.txt','w') as f:
          for level in range(33):
             try:
                 f.write(f'\n----Level {level+1:02d}----\n')
@@ -40,7 +40,7 @@ if __name__ == '__main__':
                     f.write(f'NO SOLUTION FOUND!\n')
                 f.write(f'Time : {int(exe_time_s*1000)}ms\n')
             except:
-                f.write('ERROR!\n') """
+                f.write('ERROR!\n')
     #BFS
     """ with open('results/bfs.txt','w') as f:
          for level in range(33):
@@ -59,7 +59,7 @@ if __name__ == '__main__':
             except:
                 f.write('ERROR!\n') """
     #A
-    with open('results/a.txt','w') as f:
+    """ with open('results/a.txt','w') as f:
         for level in range(33):
             try:
                 f.write(f'\n----Level {level+1:02d}----\n')
@@ -74,4 +74,4 @@ if __name__ == '__main__':
                     f.write(f'NO SOLUTION FOUND!\n')
                 f.write(f'Time : {int(exe_time_s*1000)}ms\n') 
             except:
-                f.write('ERROR!\n')
+                f.write('ERROR!\n') """
