@@ -61,14 +61,47 @@ if __name__ =="__main__":
         if selected:
             widget.set_font(font_size=32,color='white',
                             font=FONT_BOLD,
-                            background_color=LIGHT_BLUE,readonly_color=LIGHT_BLUE,
+                            background_color=LIGHT_BLUE, readonly_color=LIGHT_BLUE,
                             readonly_selected_color='white',selected_color='red',)
         else:
             widget.set_font(font_size=32,color='white',
                         font=FONT_BOLD,
                         background_color=None,readonly_color=LIGHT_BLUE,
                         readonly_selected_color='white',selected_color='red',)
+    test = pygame_menu.widgets.HighlightSelection(0)
+
+    #Play by Yourself
+    def free_play_check(level_id):
+        global GAME, CURRENT_STATE, menu
+        menu.disable()
+        GAME = UI(background, HEIGHT_SIZE, WIDTH_SIZE, level_id)
+        CURRENT_STATE = 'INGAME'
+
+    free_play = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
+                                    onclose=None,
+                                    theme=CUSTOME_THEME,
+                                    mouse_motion_selection=True)
+
+    free_play.add.label('SELECT LEVEL',font_size=40, font_name = FONT_BOLD, font_color = (255,255,255) )
+
+    for level_in_row in range(math.ceil(NUMBER_OF_LEVELS/LEVEL_PER_ROW)):
+        f = free_play.add.frame_h(WIDTH_SIZE, 60, margin=(0,0))
+
+        for level_id in range(level_in_row*LEVEL_PER_ROW,
+        min((level_in_row+1)*LEVEL_PER_ROW,NUMBER_OF_LEVELS)):
+            btn = free_play.add.button(f' {level_id+1:02d} ',
+                                            free_play_check,
+                                            level_id+1,border_width = 1, border_color = 'white')
+            btn.set_margin(0, 0)
+            btn.set_padding((4,8))
+            btn.set_selection_effect(pygame_menu.widgets.NoneSelection())
+            btn.set_selection_callback(btn_effect_chosen)
+
+            f.pack(btn,align='align-center')
+
+    free_play.add.button('BACK', pygame_menu.events.BACK,font_size=24,font_name=FONT_BOLD, font_color = (255,255,255)).translate(300,20).set_selection_effect(pygame_menu.widgets.NoneSelection())
     
+
     #Menu
 
     def algorithm_chosen_level(level_id):
@@ -89,12 +122,12 @@ if __name__ =="__main__":
                                     theme=CUSTOME_THEME,
                                     mouse_motion_selection=True)
 
-    algorithm_menu.add.label('LEVELS',font_size=40, font_name = FONT_BOLD, font_color = (255,255,255) )
+    algorithm_menu.add.label('SELECT LEVEL',font_size=40, font_name = FONT_BOLD, font_color = (255,255,255) )
 
 
-    algorithm_menu.add.selector('Algorithm', 
+    algorithm_menu.add.selector(f'A BLOXORZ SOLVER USING AlGORITHM: ', 
                                 items=[('BFS','BFS'),('DFS','DFS'),('A*','A*')],
-                                onchange=chosen_algorithm, font_color = (255,255,255),font_name = FONT_BOLD)
+                                onchange=chosen_algorithm, font_color = (255,255,255),font_name = FONT_BOLD, font_size = 30).set_selection_effect(pygame_menu.widgets.NoneSelection())
     
     # create level table for Level #
     for level_in_row in range(math.ceil(NUMBER_OF_LEVELS/LEVEL_PER_ROW)):
@@ -112,7 +145,7 @@ if __name__ =="__main__":
 
             f.pack(btn,align='align-center')
 
-    algorithm_menu.add.button('BACK', pygame_menu.events.BACK,font_size=24).translate(300,20)
+    algorithm_menu.add.button('BACK', pygame_menu.events.BACK,font_size=24,font_name=FONT_BOLD, font_color = (255,255,255)).translate(300,20).set_selection_effect(pygame_menu.widgets.NoneSelection())
 
     # Play menu
     play_menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
@@ -120,9 +153,12 @@ if __name__ =="__main__":
                                 theme=CUSTOME_THEME,
                                 mouse_motion_selection=True)
 
-    play_menu.add.button('SOLUTION', algorithm_menu,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25), font_name = FONT_BOLD)
-    play_menu.add.button('BACK', pygame_menu.events.BACK,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,55,5,55), margin=(0,25), font_name = FONT_BOLD)
-
+    p1=play_menu.add.button('FREE PLAY', free_play,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,17,5,17), margin=(0,25), font_name = FONT_BOLD)
+    p1.set_selection_effect(test.set_background_color((255,255,255),))
+    p1=play_menu.add.button('SOLUTION', algorithm_menu,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,15,5,15), margin=(0,25), font_name = FONT_BOLD)
+    p1.set_selection_effect(test.set_background_color((255,255,255),))
+    p2=play_menu.add.button('BACK', pygame_menu.events.BACK,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,55,5,55), margin=(0,25), font_name = FONT_BOLD)
+    p2.set_selection_effect(test.set_background_color((255,255,255),))
      # About menu
     about_menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                             onclose=None,
@@ -138,19 +174,33 @@ if __name__ =="__main__":
     about_menu.add.label('                 Dang Quang Thanh     -  2014485',font_size=20,font_color =(255,255,255))
     about_menu.add.label('                 Dang Quang Huy         -  2012504',font_size=20,font_color =(255,255,255)) 
 
-    about_menu.add.button('BACK', pygame_menu.events.BACK, font_size=30,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25)).translate(0, 40)
-
+    ab1 = about_menu.add.button('BACK', pygame_menu.events.BACK, font_size=30,background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25), font_name = FONT_BOLD).translate(0, 40)
+    ab1.set_selection_effect(test.set_background_color((255,255,255),))
 
     # Main menu
 
+    def change_color(selected, value):
+        if selected:
+            value.set_background_color((255, 0, 0))  # red when selected
+        else:
+            value.set_background_color((0, 255, 0))  # green when not selected
+
+    selection_effect = {"highlight_color": (255, 0, 0), "hover_color": (0, 255, 0), "update_menu": change_color}
     menu = pygame_menu.Menu('', WIDTH_SIZE, HEIGHT_SIZE,
                             onclose=None,
                             theme=CUSTOME_THEME,
                             mouse_motion_selection=True,)
+    
+    def check(widget: 'pygame_menu.widgets.HighlightSelection', menu: 'pygame_menu.Menu'):
+        widget.set_background_color((255,255,255), )
+        widget.set_color((0,0,0),)
          
-    menu.add.button('PLAY GAME', play_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25), font_name = FONT_BOLD)
-    menu.add.button('ABOUT', about_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,48,5,48),margin=(0,25), font_name = FONT_BOLD)
-    menu.add.button('QUIT', pygame_menu.events.EXIT, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,64,5,64),margin=(0,25), font_name = FONT_BOLD)
+    menu_btn = menu.add.button('PLAY GAME',play_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,16,5,16), margin=(0,25), font_name = FONT_BOLD )
+    menu_btn.set_selection_effect(test.set_background_color((255,255,255),))
+    menu_btn1 = menu.add.button('ABOUT', about_menu, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,50,5,50),margin=(0,25), font_name = FONT_BOLD)
+    menu_btn1.set_selection_effect(test.set_background_color((255,255,255),))
+    menu_btn2 = menu.add.button('QUIT', pygame_menu.events.EXIT, background_color = None, border_color = (255,255,255), font_color = (255,255,255), border_width = 2, padding = (5,66,5,66),margin=(0,25), font_name = FONT_BOLD)
+    menu_btn2.set_selection_effect(test.set_background_color((255,255,255),))
 
     # Main loop
     while True:
@@ -160,7 +210,12 @@ if __name__ =="__main__":
         background.fill(COLOR_BACKGROUND)
 
         events = pygame.event.get()
-        if CURRENT_STATE == 'VIEWING_STATS_ALGORITHM':
+        if CURRENT_STATE == 'INGAME':
+            GAME.process(events)
+            if GAME.should_quit():
+                CURRENT_STATE = 'MENU'
+                menu.enable()
+        elif CURRENT_STATE == 'VIEWING_STATS_ALGORITHM':
             ALGORITHM_STATS.process(events)
             if ALGORITHM_STATS.should_quit():
                 CURRENT_STATE = 'MENU'
