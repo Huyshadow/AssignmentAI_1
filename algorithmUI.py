@@ -125,7 +125,6 @@ class AlgorithUI_Stats:
         text = self.medium_font.render(f"Algorithm: {self.algorithm.algo}", True, LIGHT_BLUE)
         text_rect = text.get_rect(center=(self.UI_width/2, 125))
         self.background.blit(text, text_rect)
-
         # Running Solution  
         if self.solution_cost is not None:
             text = self.medium_font.render(f"{self.SOLUTION[self.algorithm.algo]}: {self.solution_cost}", True, BLACK)
@@ -146,8 +145,8 @@ class AlgorithUI_Stats:
             # Press keyword to view Solution.
             text = self.small_font.render("Press S to view solution steps.", True, LIGHT_BLUE) 
             text_rect = text.get_rect(center=(self.UI_width/2, self.UI_height/2+228))
-            self.background.blit(text, text_rect)
-        
+            self.background.blit(text, text_rect) 
+    
         else:
             text = self.small_font.render("NO SOLUTION FOUND!", True, RED)
             text_rect = text.get_rect(center=(self.UI_width/2, 350))

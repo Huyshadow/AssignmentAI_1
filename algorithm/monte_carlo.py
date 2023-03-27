@@ -233,13 +233,22 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
     def getback(nums_of_node,path=None,is_done=False):
         nonlocal sender,ready
         if sender is not None:
-            return_dict = {
+            if nums_of_node >= 1001:
+                 return_dict = {
                 'solution_cost': nums_of_node,
                 'path': path,
                 'time': time.time() - ready,
-                'msg': f'Node has been through: {nums_of_node}',
+                'msg': f'NO SOLUTION FOUND!',
                 'is_done': is_done
-            }
+                }
+            else:
+                return_dict = {
+                    'solution_cost': nums_of_node,
+                    'path': path,
+                    'time': time.time() - ready,
+                    'msg': f'Node has been through: {nums_of_node}',
+                    'is_done': is_done
+                }
             try:
                 sender.send(return_dict)
             except:
