@@ -1,0 +1,195 @@
+
+----Level 01----
+Explored: 660 nodes
+Step num: 27
+Step : D-R-L-U-D-R-L-U-D-U-R-L-R-L-D-U-R-D-U-D-R-R-D-L-R-D-R
+Time : 2025ms
+
+----Level 02----
+Explored: 910 nodes
+Step num: 87
+Step : U-D-R-U-L-R-D-U-U-L-R-U-L-D-U-R-L-D-R-R-D-R-R-R-D-U-D-U-R-L-R-U-U-L-U-D-L-D-R-D-R-L-U-L-R-R-U-D-U-D-L-R-D-L-R-U-U-D-U-L-U-R-L-R-L-R-L-D-R-D-D-L-R-R-R-L-R-R-U-U-U-R-D-D-U-L-U
+Time : 9244ms
+
+----Level 03----
+Explored: 494 nodes
+Step num: 52
+Step : R-U-R-L-L-R-R-R-L-R-L-L-L-D-R-L-U-D-R-R-L-R-U-R-R-R-L-R-U-D-U-D-L-L-R-R-U-U-R-R-R-L-R-D-L-D-U-R-D-D-R-U
+Time : 3738ms
+
+----Level 04----
+Explored: 351 nodes
+Step num: 66
+Step : U-L-U-D-D-U-U-D-U-D-U-R-R-L-L-R-L-R-R-U-R-R-R-R-R-R-D-R-L-R-L-R-D-D-D-D-D-D-U-R-U-D-U-L-U-D-L-U-D-U-U-D-D-R-L-L-L-L-R-R-L-L-D-U-L-D
+Time : 3108ms
+
+----Level 05----
+Explored: 1001 nodes
+Step num: 99
+Step : L-U-D-R-L-L-L-R-R-L-L-L-L-L-L-R-D-U-L-D-R-L-L-D-R-U-R-U-D-L-D-U-D-R-R-L-U-L-D-R-U-L-L-R-D-U-L-D-R-L-U-D-R-D-U-L-U-R-D-U-R-R-D-D-L-R-L-R-U-D-L-U-D-R-L-R-L-U-L-R-L-R-D-U-L-D-U-D-U-U-U-D-R-D-L-L-R-U-D
+Time : 12236ms
+
+----Level 06----
+Explored: 1001 nodes
+Step num: 164
+Step : R-L-R-R-R-D-D-U-R-L-D-U-R-D-D-R-L-U-D-U-U-D-U-D-D-U-U-D-D-U-U-D-D-U-D-R-L-R-L-R-R-D-U-D-L-L-U-R-L-R-R-L-R-L-D-D-U-L-R-L-R-D-L-U-D-U-D-U-D-U-L-U-D-R-L-R-L-U-D-R-L-U-U-L-U-U-D-D-R-L-R-L-U-D-L-U-L-R-D-R-U-D-U-D-L-U-D-U-L-L-R-R-L-R-D-U-L-L-R-R-L-L-R-R-D-U-D-U-L-L-R-R-D-U-D-R-R-L-L-U-D-R-L-U-L-R-D-R-U-D-U-U-U-D-U-R-R-L-R-R-L-D-R-L
+Time : 10784ms
+
+----Level 07----
+Explored: 1001 nodes
+Step num: 17
+Step : D-U-D-D-U-R-L-U-D-R-U-D-D-U-L-R-D
+Time : 12316ms
+
+----Level 08----
+Explored: 880 nodes
+Step num: 27
+Step : R-R-U-R-D-D-L-D-U-L-D-U-D-S-U-R-L-U-L-U-R-D-D-U-R-U-R
+Time : 4957ms
+
+----Level 09----
+Explored: 1001 nodes
+Step num: 22
+Step : R-D-R-L-L-R-R-R-L-L-L-R-R-R-R-U-D-R-L-D-L-R
+Time : 12437ms
+
+----Level 10----
+ERROR!
+
+----Level 11----
+Explored: 1001 nodes
+Step num: 10
+Step : R-R-R-R-D-L-R-L-R-L
+Time : 12505ms
+
+----Level 12----
+Explored: 1001 nodes
+Step num: 12
+Step : L-D-R-U-R-U-R-L-R-U-R-L
+Time : 12527ms
+
+----Level 13----
+Explored: 1001 nodes
+Step num: 27
+Step : U-L-U-L-R-D-U-L-R-D-R-L-R-U-D-U-D-L-U-L-R-L-R-L-R-L-R
+Time : 12310ms
+
+----Level 14----
+Explored: 1001 nodes
+Step num: 12
+Step : R-R-R-U-U-D-U-D-D-R-R-R
+Time : 12374ms
+
+----Level 15----
+Explored: 1001 nodes
+Step num: 10
+Step : R-R-R-R-U-U-D-U-U-R
+Time : 12423ms
+
+----Level 16----
+Explored: 806 nodes
+Step num: 110
+Step : R-R-R-R-S-R-D-S-R-U-S-R-L-L-R-R-L-R-L-L-L-S-L-R-R-R-R-R-R-L-R-R-R-D-R-U-D-U-D-L-U-L-R-L-R-R-L-U-R-D-L-L-R-R-U-L-D-R-L-U-D-R-L-D-U-R-L-L-L-R-R-R-L-L-L-L-L-L-L-L-S-D-R-L-L-S-S-R-R-R-S-S-S-S-S-S-R-L-S-S-L-S-D-R-R-R-R-R-R-R
+Time : 9419ms
+
+----Level 17----
+Explored: 1001 nodes
+Step num: 6
+Step : D-R-L-R-L-U
+Time : 12621ms
+
+----Level 18----
+Explored: 1001 nodes
+Step num: 5
+Step : R-L-R-L-D
+Time : 12769ms
+
+----Level 19----
+Explored: 1001 nodes
+Step num: 13
+Step : R-R-R-R-L-R-L-L-L-R-R-R-R
+Time : 12399ms
+
+----Level 20----
+Explored: 1001 nodes
+Step num: 7
+Step : D-L-R-L-R-R-L
+Time : 12616ms
+
+----Level 21----
+Explored: 1001 nodes
+Step num: 11
+Step : R-L-R-D-U-L-D-R-U-L-R
+Time : 12545ms
+
+----Level 22----
+Explored: 1001 nodes
+Step num: 7
+Step : R-U-D-U-L-D-L
+Time : 12571ms
+
+----Level 23----
+Explored: 1001 nodes
+Step num: 6
+Step : R-D-U-L-R-U
+Time : 12664ms
+
+----Level 24----
+Explored: 1001 nodes
+Step num: 20
+Step : D-D-R-R-L-R-U-D-L-R-U-D-L-R-L-R-L-R-L-L
+Time : 12064ms
+
+----Level 25----
+Explored: 1001 nodes
+Step num: 18
+Step : U-R-L-R-D-U-D-L-R-U-L-D-U-R-D-L-U-R
+Time : 12567ms
+
+----Level 26----
+Explored: 1001 nodes
+Step num: 8
+Step : U-U-L-L-L-R-L-L
+Time : 12643ms
+
+----Level 27----
+Explored: 1001 nodes
+Step num: 10
+Step : R-R-R-R-R-U-D-U-D-R
+Time : 12523ms
+
+----Level 28----
+Explored: 1001 nodes
+Step num: 9
+Step : L-D-D-D-R-D-R-U-L
+Time : 12677ms
+
+----Level 29----
+Explored: 1001 nodes
+Step num: 7
+Step : R-L-L-R-R-R-L
+Time : 12425ms
+
+----Level 30----
+Explored: 1001 nodes
+Step num: 8
+Step : D-R-D-L-R-D-U-R
+Time : 12802ms
+
+----Level 31----
+Explored: 1001 nodes
+Step num: 7
+Step : U-L-D-R-L-R-U
+Time : 12989ms
+
+----Level 32----
+Explored: 1001 nodes
+Step num: 7
+Step : U-L-R-L-R-L-D
+Time : 12491ms
+
+----Level 33----
+Explored: 1001 nodes
+Step num: 8
+Step : R-R-R-R-R-L-R-R
+Time : 13001ms

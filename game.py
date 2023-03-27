@@ -187,3 +187,8 @@ class UI: #Design UI for Game
 
     def should_quit(self):
         return self.ESC
+
+if __name__ == '__main__':
+    
+    background = pygame.display.set_mode((500,500))
+    b1 = UI(background,500,500,2)

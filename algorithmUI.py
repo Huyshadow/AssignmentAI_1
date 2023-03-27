@@ -23,6 +23,7 @@ class AlgorithUI_Stats:
         'BFS': 'Node explored',
         'DFS': 'Node explored',
         'A*' : 'Node explored',
+        'MCTS': 'Node explored',
         # Sẽ import thêm các giải thuật sau :V     
     }
 
