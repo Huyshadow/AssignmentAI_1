@@ -43,7 +43,7 @@ class AlgorithUI_Stats:
         pygame.font.init()
         self.big_font = pygame.font.Font(None, 50)
         self.medium_font = pygame.font.Font(None, 40)
-        self.small_font = pygame.font.Font(None, 30, bold=False)
+        self.small_font = pygame.font.Font(None, 30)
 
         self.ESC  = False
         self.show = False
@@ -232,6 +232,5 @@ class AlgorithmUI_Show:
 if __name__ == '__main__':
     # with open('results/ga.txt','w') as f:
     background = pygame.display.set_mode((900,770))
-    
     p1 = AlgorithUI_Stats(background, 770,900,1,'BFS')
     
