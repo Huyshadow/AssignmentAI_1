@@ -43,7 +43,7 @@ class AlgorithUI_Stats:
         pygame.font.init()
         self.big_font = pygame.font.Font(None, 50)
         self.medium_font = pygame.font.Font(None, 40)
-        self.small_font = pygame.font.Font(None, 30, bold=False)
+        self.small_font = pygame.font.Font(None, 30)
 
         self.ESC  = False
         self.show = False

@@ -7,6 +7,7 @@ from Bloxoz import Blozorx, State
 from algorithm.bfs import breath_first_search
 from algorithm.dfs import depth_first_search
 from algorithm.a_search import a_search
+from algorithm.monte_carlo import monte_carlo_tree_search
 
 """'MONTECARLO': monte_carlo_search """
 class Algorithm:
@@ -14,6 +15,7 @@ class Algorithm:
         'DFS':depth_first_search,
         'BFS':breath_first_search,
         'A*': a_search,
+        'MCTS': monte_carlo_tree_search,
     }
     def __init__(self,algorithm):
         self.algo = algorithm

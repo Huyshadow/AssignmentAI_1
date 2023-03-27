@@ -126,7 +126,7 @@ if __name__ =="__main__":
 
 
     algorithm_menu.add.selector(f'A BLOXORZ SOLVER USING AlGORITHM: ', 
-                                items=[('BFS','BFS'),('DFS','DFS'),('A*','A*')],
+                                items=[('BFS','BFS'),('DFS','DFS'),('A*','A*'),('MCTS','MCTS')],
                                 onchange=chosen_algorithm, font_color = (255,255,255),font_name = FONT_BOLD, font_size = 30).set_selection_effect(pygame_menu.widgets.NoneSelection())
     
     # create level table for Level #
