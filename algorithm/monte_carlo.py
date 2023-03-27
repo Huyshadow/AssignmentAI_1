@@ -85,8 +85,9 @@ class MonteCarloTreeSearchNode(ABC):
 
 
 class BlozorxMonteCarloTreeSearchNode(MonteCarloTreeSearchNode):
-    def __init__(self, state, parent=None, prev_action=None):
-        super().__init__(state, parent)
+    def __init__(self, game: Blozorx, state: State, parent=None, prev_action=None):
+        super().__init__(state, parent, prev_action)
+        self.game = game
         self._number_of_visits = 0.
         # self._results = defaultdict(int)
         self._results = 0
@@ -96,7 +97,7 @@ class BlozorxMonteCarloTreeSearchNode(MonteCarloTreeSearchNode):
     def untried_actions(self):
         if self._untried_actions is None:
             # self._untried_actions = self.state.get_legal_actions()
-            self._untried_actions = Blozorx.possible_actions_nows(self.state)
+            self._untried_actions = self.game.possible_actions_nows(self.state)
         return self._untried_actions
 #####
     @property
@@ -113,11 +114,13 @@ class BlozorxMonteCarloTreeSearchNode(MonteCarloTreeSearchNode):
     def expand(self):
         action = self.untried_actions.pop()
         # next_state = self.state.move(action)
-        next_state = Blozorx.playing(self.state, action, inplace=False)
+        next_state = self.game.playing(self.state, action, inplace=False)
+        # print(next_state.cur)
         child_node = BlozorxMonteCarloTreeSearchNode(
-            next_state, parent=self, prev_action=action
+            self.game, next_state, parent=self, prev_action=action
         )
         self.children.append(child_node)
+        # print(self.)
         return child_node
 #####    
     def is_terminal_node(self):
@@ -130,10 +133,10 @@ class BlozorxMonteCarloTreeSearchNode(MonteCarloTreeSearchNode):
         # while not current_rollout_state.is_game_over():
         while not current_rollout_state.goaling() and step < 1000:
             # possible_moves = current_rollout_state.get_legal_actions()
-            possible_moves = Blozorx.possible_actions_nows(current_rollout_state)
+            possible_moves = self.game.possible_actions_nows(current_rollout_state)
             action = self.rollout_policy(possible_moves)
             # current_rollout_state = current_rollout_state.move(action)
-            current_rollout_state = Blozorx.playing(current_rollout_state, action, inplace=False)
+            current_rollout_state = self.game.playing(current_rollout_state, action, inplace=False)
             step += 1
         # return current_rollout_state.game_result
         return step
@@ -189,13 +192,20 @@ class MonteCarloTreeSearch:
     
     def path_to_best_child(self):
         current_node = self.root
-        path = None
+        
+        path = "abc"
+        
         while current_node.children != []:
+            # print(current_node.children)
             current_node = current_node.best_child(c_param=0.)
-            if path == None:
+            # print(current_node.children != [])
+            # print(current_node.prev_action)
+            if path == "abc":
                 path = current_node.prev_action[0]
             else:
                 path += current_node.prev_action[0]
+            # print(path)
+            
         is_done = False
         if current_node.is_terminal_node():
             is_done = True
@@ -243,9 +253,10 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
     if state.goaling():
         return getback(0, '', True)
     
-    root = BlozorxMonteCarloTreeSearchNode(state)
+    root = BlozorxMonteCarloTreeSearchNode(game,state)
     mcts = MonteCarloTreeSearch(root)
     mcts.best_action(1000)
+    # print(mcts.root.children)
     num_of_node, path, is_done = mcts.path_to_best_child()
-    return getback(nums_of_node, path, is_done)
+    return getback(num_of_node, path, is_done)
     

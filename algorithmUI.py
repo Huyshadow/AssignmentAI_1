@@ -23,6 +23,7 @@ class AlgorithUI_Stats:
         'BFS': 'Node explored',
         'DFS': 'Node explored',
         'A*' : 'Node explored',
+        'MCTS': 'Node explored',
         # Sẽ import thêm các giải thuật sau :V     
     }
 
@@ -230,8 +231,20 @@ class AlgorithmUI_Show:
     
 
 if __name__ == '__main__':
-    # with open('results/ga.txt','w') as f:
-    background = pygame.display.set_mode((900,770))
-    
-    p1 = AlgorithUI_Stats(background, 770,900,1,'BFS')
+    with open('results/mcts.txt','w') as f:
+        for level in range(33):
+            try:
+                f.write(f'\n----Level {level+1:02d}----\n')
+                game = Blozorx(level+1)
+                explore_node_num, path, exe_time_s = Algorithm('MCTS').running(game)
+                print(f'Level {level+1:02d} {int(exe_time_s*1000)}ms')
+                f.write(f'Explored: {explore_node_num} nodes\n')
+                if path is not None:
+                    f.write(f'Step num: {len(path)}\n')
+                    f.write(f'Step : {"-".join(path)}\n')
+                else:
+                    f.write(f'NO SOLUTION FOUND!\n')
+                f.write(f'Time : {int(exe_time_s*1000)}ms\n') 
+            except:
+                f.write('ERROR!\n')
     
