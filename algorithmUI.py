@@ -230,5 +230,8 @@ class AlgorithmUI_Show:
         return self.ESC
     
 
-
+if __name__ == '__main__':
+    # with open('results/ga.txt','w') as f:
+    background = pygame.display.set_mode((900,770))
+    p1 = AlgorithUI_Stats(background, 770,900,1,'BFS')
     
