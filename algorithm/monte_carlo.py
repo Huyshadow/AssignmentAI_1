@@ -193,14 +193,14 @@ class MonteCarloTreeSearch:
     def path_to_best_child(self):
         current_node = self.root
         
-        path = "abc"
+        path = None
         
         while current_node.children != []:
             # print(current_node.children)
             current_node = current_node.best_child(c_param=0.)
             # print(current_node.children != [])
             # print(current_node.prev_action)
-            if path == "abc":
+            if path == None:
                 path = current_node.prev_action[0]
             else:
                 path += current_node.prev_action[0]
@@ -229,15 +229,15 @@ class MonteCarloTreeSearch:
 
 def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection = None):
     ready = time.time()
-    nums_of_node = 0
-    def getback(nums_of_node,path=None,is_done=False):
+    num_of_node = 0
+    def getback(num_of_node,path=None,is_done=False):
         nonlocal sender,ready
         if sender is not None:
             return_dict = {
-                'solution_cost': nums_of_node,
+                'solution_cost': num_of_node,
                 'path': path,
                 'time': time.time() - ready,
-                'msg': f'Node has been through: {nums_of_node}',
+                'msg': f'Node has been through: {num_of_node}',
                 'is_done': is_done
             }
             try:
@@ -245,7 +245,7 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
             except:
                 pass 
         else:
-            return nums_of_node,path,time.time() - ready
+            return num_of_node,path,time.time() - ready
         
     if state is None:
         state = game.init_state
@@ -255,7 +255,7 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
     
     root = BlozorxMonteCarloTreeSearchNode(game,state)
     mcts = MonteCarloTreeSearch(root)
-    mcts.best_action(1000)
+    mcts.best_action(3000)
     # print(mcts.root.children)
     num_of_node, path, is_done = mcts.path_to_best_child()
     return getback(num_of_node, path, is_done)
