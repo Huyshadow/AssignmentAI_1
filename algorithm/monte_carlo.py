@@ -233,7 +233,7 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
     def getback(nums_of_node,path=None,is_done=False):
         nonlocal sender,ready
         if sender is not None:
-            if nums_of_node >= 1001:
+            if nums_of_node >= 3001:
                  return_dict = {
                 'solution_cost': nums_of_node,
                 'path': path,
@@ -264,7 +264,7 @@ def monte_carlo_tree_search(game:Blozorx, state:State = None, sender: Connection
     
     root = BlozorxMonteCarloTreeSearchNode(game,state)
     mcts = MonteCarloTreeSearch(root)
-    mcts.best_action(1000)
+    mcts.best_action(3000)
     # print(mcts.root.children)
     num_of_node, path, is_done = mcts.path_to_best_child()
     return getback(num_of_node, path, is_done)

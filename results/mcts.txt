@@ -1,195 +1,119 @@
 
 ----Level 01----
-Explored: 660 nodes
-Step num: 27
-Step : D-R-L-U-D-R-L-U-D-U-R-L-R-L-D-U-R-D-U-D-R-R-D-L-R-D-R
-Time : 2025ms
+Explored: 145 nodes
+Step num: 17
+Step : D-R-R-R-L-L-L-U-R-D-U-R-D-R-R-R-D
+Time : 1754ms
 
 ----Level 02----
-Explored: 910 nodes
-Step num: 87
-Step : U-D-R-U-L-R-D-U-U-L-R-U-L-D-U-R-L-D-R-R-D-R-R-R-D-U-D-U-R-L-R-U-U-L-U-D-L-D-R-D-R-L-U-L-R-R-U-D-U-D-L-R-D-L-R-U-U-D-U-L-U-R-L-R-L-R-L-D-R-D-D-L-R-R-R-L-R-R-U-U-U-R-D-D-U-L-U
-Time : 9244ms
+Explored: 2580 nodes
+Step num: 152
+Step : U-U-R-L-D-L-R-L-R-D-U-D-U-R-R-D-L-R-R-R-R-R-U-D-U-L-L-U-D-R-L-R-U-D-L-L-D-R-U-U-U-R-L-R-L-L-R-R-L-R-L-D-U-U-R-D-L-R-D-U-U-L-L-R-R-D-L-D-U-R-U-D-D-L-R-L-D-R-L-U-L-R-D-R-U-L-R-L-R-D-R-R-R-L-R-U-U-L-R-L-D-R-U-U-L-R-D-D-U-D-U-D-R-L-R-L-R-U-D-L-U-U-R-L-L-D-U-R-R-D-D-L-L-U-R-U-D-U-D-U-U-L-R-L-D-U-R-D-L-D-R-U
+Time : 60341ms
 
 ----Level 03----
-Explored: 494 nodes
-Step num: 52
-Step : R-U-R-L-L-R-R-R-L-R-L-L-L-D-R-L-U-D-R-R-L-R-U-R-R-R-L-R-U-D-U-D-L-L-R-R-U-U-R-R-R-L-R-D-L-D-U-R-D-D-R-U
-Time : 3738ms
+Explored: 313 nodes
+Step num: 43
+Step : U-D-U-R-L-D-R-U-R-R-R-U-R-L-R-D-L-U-R-L-R-L-U-R-L-R-L-R-R-R-D-D-U-D-R-D-L-R-U-R-D-L-U
+Time : 6317ms
 
 ----Level 04----
-Explored: 351 nodes
-Step num: 66
-Step : U-L-U-D-D-U-U-D-U-D-U-R-R-L-L-R-L-R-R-U-R-R-R-R-R-R-D-R-L-R-L-R-D-D-D-D-D-D-U-R-U-D-U-L-U-D-L-U-D-U-U-D-D-R-L-L-L-L-R-R-L-L-D-U-L-D
-Time : 3108ms
+Explored: 1754 nodes
+Step num: 122
+Step : U-U-R-L-R-L-R-L-D-L-R-D-U-L-R-R-L-L-R-D-U-L-R-U-R-L-R-L-D-R-L-L-D-R-D-L-U-U-R-L-R-U-R-L-L-R-R-U-R-R-R-L-R-R-R-R-L-R-D-U-L-R-L-R-D-R-L-U-D-R-L-R-L-R-L-R-L-R-L-R-D-U-D-D-U-D-U-D-U-D-U-D-D-D-U-D-U-D-D-D-U-R-U-R-L-L-L-L-R-U-U-D-D-R-L-L-L-L-D-U-L-D
+Time : 44177ms
 
 ----Level 05----
-Explored: 1001 nodes
-Step num: 99
-Step : L-U-D-R-L-L-L-R-R-L-L-L-L-L-L-R-D-U-L-D-R-L-L-D-R-U-R-U-D-L-D-U-D-R-R-L-U-L-D-R-U-L-L-R-D-U-L-D-R-L-U-D-R-D-U-L-U-R-D-U-R-R-D-D-L-R-L-R-U-D-L-U-D-R-L-R-L-U-L-R-L-R-D-U-L-D-U-D-U-U-U-D-R-D-L-L-R-U-D
-Time : 12236ms
+NO SOLUTION FOUND!
 
 ----Level 06----
-Explored: 1001 nodes
-Step num: 164
-Step : R-L-R-R-R-D-D-U-R-L-D-U-R-D-D-R-L-U-D-U-U-D-U-D-D-U-U-D-D-U-U-D-D-U-D-R-L-R-L-R-R-D-U-D-L-L-U-R-L-R-R-L-R-L-D-D-U-L-R-L-R-D-L-U-D-U-D-U-D-U-L-U-D-R-L-R-L-U-D-R-L-U-U-L-U-U-D-D-R-L-R-L-U-D-L-U-L-R-D-R-U-D-U-D-L-U-D-U-L-L-R-R-L-R-D-U-L-L-R-R-L-L-R-R-D-U-D-U-L-L-R-R-D-U-D-R-R-L-L-U-D-R-L-U-L-R-D-R-U-D-U-U-U-D-U-R-R-L-R-R-L-D-R-L
-Time : 10784ms
+Explored: 1823 nodes
+Step num: 170
+Step : R-L-R-L-R-R-R-D-D-R-D-U-L-R-L-R-D-U-D-D-U-D-R-U-D-R-L-R-U-D-L-R-L-L-U-D-U-D-U-U-D-U-L-U-R-D-U-L-U-D-R-D-U-L-D-U-D-R-D-D-R-D-R-L-R-L-R-U-D-L-R-U-D-U-R-L-L-L-L-U-D-R-R-R-R-L-R-L-R-L-R-L-L-L-L-U-D-R-R-L-L-U-U-D-U-L-U-U-D-U-D-D-R-L-U-U-D-L-R-U-U-R-R-R-D-U-L-R-D-D-R-L-R-D-R-R-L-R-R-D-U-D-U-D-L-R-L-U-D-U-U-L-R-R-L-R-L-R-L-L-R-R-D-U-D-L-U-L-D-R
+Time : 57308ms
 
 ----Level 07----
-Explored: 1001 nodes
-Step num: 17
-Step : D-U-D-D-U-R-L-U-D-R-U-D-D-U-L-R-D
-Time : 12316ms
+NO SOLUTION FOUND!
 
 ----Level 08----
-Explored: 880 nodes
-Step num: 27
-Step : R-R-U-R-D-D-L-D-U-L-D-U-D-S-U-R-L-U-L-U-R-D-D-U-R-U-R
-Time : 4957ms
+Explored: 1979 nodes
+Step num: 38
+Step : R-R-L-S-S-U-D-S-L-S-R-D-L-R-D-D-D-S-D-S-D-D-D-R-U-L-D-U-R-U-D-L-U-R-R-L-U-R
+Time : 32471ms
 
 ----Level 09----
-Explored: 1001 nodes
-Step num: 22
-Step : R-D-R-L-L-R-R-R-L-L-L-R-R-R-R-U-D-R-L-D-L-R
-Time : 12437ms
-
+NO SOLUTION FOUND!
 ----Level 10----
-ERROR!
+NO SOLUTION FOUND!
 
 ----Level 11----
-Explored: 1001 nodes
-Step num: 10
-Step : R-R-R-R-D-L-R-L-R-L
-Time : 12505ms
+NO SOLUTION FOUND!
 
 ----Level 12----
-Explored: 1001 nodes
-Step num: 12
-Step : L-D-R-U-R-U-R-L-R-U-R-L
-Time : 12527ms
+NO SOLUTION FOUND!
 
 ----Level 13----
-Explored: 1001 nodes
-Step num: 27
-Step : U-L-U-L-R-D-U-L-R-D-R-L-R-U-D-U-D-L-U-L-R-L-R-L-R-L-R
-Time : 12310ms
+NO SOLUTION FOUND!
 
 ----Level 14----
-Explored: 1001 nodes
-Step num: 12
-Step : R-R-R-U-U-D-U-D-D-R-R-R
-Time : 12374ms
+NO SOLUTION FOUND!
 
 ----Level 15----
-Explored: 1001 nodes
-Step num: 10
-Step : R-R-R-R-U-U-D-U-U-R
-Time : 12423ms
+NO SOLUTION FOUND!
 
 ----Level 16----
-Explored: 806 nodes
-Step num: 110
-Step : R-R-R-R-S-R-D-S-R-U-S-R-L-L-R-R-L-R-L-L-L-S-L-R-R-R-R-R-R-L-R-R-R-D-R-U-D-U-D-L-U-L-R-L-R-R-L-U-R-D-L-L-R-R-U-L-D-R-L-U-D-R-L-D-U-R-L-L-L-R-R-R-L-L-L-L-L-L-L-L-S-D-R-L-L-S-S-R-R-R-S-S-S-S-S-S-R-L-S-S-L-S-D-R-R-R-R-R-R-R
-Time : 9419ms
+Explored: 892 nodes
+Step num: 109
+Step : R-R-R-R-D-R-S-L-R-S-L-R-R-L-L-D-S-R-U-S-S-S-R-L-R-L-L-R-R-L-L-L-S-L-R-R-L-S-D-L-L-D-U-R-R-R-R-R-R-L-L-R-R-L-R-L-L-L-L-L-R-L-S-S-R-R-R-S-D-R-S-S-S-R-L-R-R-S-R-S-S-R-S-R-R-R-L-R-D-R-S-R-S-L-R-S-L-R-R-S-L-U-L-R-S-R-R-R-R
+Time : 23445ms
 
 ----Level 17----
-Explored: 1001 nodes
-Step num: 6
-Step : D-R-L-R-L-U
-Time : 12621ms
+NO SOLUTION FOUND!
 
 ----Level 18----
-Explored: 1001 nodes
-Step num: 5
-Step : R-L-R-L-D
-Time : 12769ms
+NO SOLUTION FOUND!
 
 ----Level 19----
-Explored: 1001 nodes
-Step num: 13
-Step : R-R-R-R-L-R-L-L-L-R-R-R-R
-Time : 12399ms
+NO SOLUTION FOUND!
 
 ----Level 20----
-Explored: 1001 nodes
-Step num: 7
-Step : D-L-R-L-R-R-L
-Time : 12616ms
+NO SOLUTION FOUND!
 
 ----Level 21----
-Explored: 1001 nodes
-Step num: 11
-Step : R-L-R-D-U-L-D-R-U-L-R
-Time : 12545ms
+NO SOLUTION FOUND!
 
 ----Level 22----
-Explored: 1001 nodes
-Step num: 7
-Step : R-U-D-U-L-D-L
-Time : 12571ms
+NO SOLUTION FOUND!
 
 ----Level 23----
-Explored: 1001 nodes
-Step num: 6
-Step : R-D-U-L-R-U
-Time : 12664ms
+NO SOLUTION FOUND!
 
 ----Level 24----
-Explored: 1001 nodes
-Step num: 20
-Step : D-D-R-R-L-R-U-D-L-R-U-D-L-R-L-R-L-R-L-L
-Time : 12064ms
+NO SOLUTION FOUND!
 
 ----Level 25----
-Explored: 1001 nodes
-Step num: 18
-Step : U-R-L-R-D-U-D-L-R-U-L-D-U-R-D-L-U-R
-Time : 12567ms
+NO SOLUTION FOUND!
 
 ----Level 26----
-Explored: 1001 nodes
-Step num: 8
-Step : U-U-L-L-L-R-L-L
-Time : 12643ms
+NO SOLUTION FOUND!
 
 ----Level 27----
-Explored: 1001 nodes
-Step num: 10
-Step : R-R-R-R-R-U-D-U-D-R
-Time : 12523ms
+NO SOLUTION FOUND!
 
 ----Level 28----
-Explored: 1001 nodes
-Step num: 9
-Step : L-D-D-D-R-D-R-U-L
-Time : 12677ms
+NO SOLUTION FOUND!
 
 ----Level 29----
-Explored: 1001 nodes
-Step num: 7
-Step : R-L-L-R-R-R-L
-Time : 12425ms
+NO SOLUTION FOUND!
 
 ----Level 30----
-Explored: 1001 nodes
-Step num: 8
-Step : D-R-D-L-R-D-U-R
-Time : 12802ms
+NO SOLUTION FOUND!
 
 ----Level 31----
-Explored: 1001 nodes
-Step num: 7
-Step : U-L-D-R-L-R-U
-Time : 12989ms
+NO SOLUTION FOUND!
 
 ----Level 32----
-Explored: 1001 nodes
-Step num: 7
-Step : U-L-R-L-R-L-D
-Time : 12491ms
+NO SOLUTION FOUND!
 
 ----Level 33----
-Explored: 1001 nodes
-Step num: 8
-Step : R-R-R-R-R-L-R-R
-Time : 13001ms
+NO SOLUTION FOUND!

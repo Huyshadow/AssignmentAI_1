@@ -227,4 +227,23 @@ class AlgorithmUI_Show:
 
     def should_quit(self):
         return self.ESC
+
+if __name__ == "__main__":
+    with open('results/mcts.txt','w') as f:
+        for level in range(33):
+            try:
+                f.write(f'\n----Level {level+1:02d}----\n')
+                game = Blozorx(level+1)
+                explore_node_num, path, exe_time_s = Algorithm('MCTS').running(game)
+                print(f'Level {level+1:02d} {int(exe_time_s*1000)}ms')
+                if(explore_node_num == 3001):
+                    f.write(f'NO SOLUTION FOUND!\n')
+                else:
+                    f.write(f'Explored: {explore_node_num} nodes\n')
+                    f.write(f'Step num: {len(path)}\n')
+                    f.write(f'Step : {"-".join(path)}\n')
+                f.write(f'Time : {int(exe_time_s*1000)}ms\n') 
+            except:
+                f.write('ERROR!\n')
+
     
