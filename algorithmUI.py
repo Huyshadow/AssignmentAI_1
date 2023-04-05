@@ -209,7 +209,7 @@ class AlgorithmUI_Show:
     def draw_pause(self):
         text = self.FONT.render('PAUSE', True, WHITE)
         text_rect = text.get_rect(center=(self.W_WIDTH_SIZE/2, 35))
-        self.surface.blit(text, text_rect)
+        self.background.blit(text, text_rect)
             
 
     def process(self, events, deltatime):

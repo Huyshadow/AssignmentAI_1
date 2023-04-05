@@ -65,6 +65,10 @@ class UI: #Design UI for Game
                     possible,_ = self.game.possible_move(self.state,GamePlay.left,True)
                     if possible:
                         self.moves += 1
+                elif not self.end and event.key == pygame.K_SPACE:
+                    possible,_ = self.game.possible_move(self.state,GamePlay.switch,True)
+                    if possible:
+                        self.moves += 1
                 elif event.key == pygame.K_ESCAPE:
                     self.ESC = True
     def draw_cell(self, position, size, color):
